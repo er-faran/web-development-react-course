@@ -1,0 +1,36 @@
+.headings {
+  background-color: bisque;
+}
+.paragraph {
+  background-color: chocolate;
+}
+.word-class {
+  color: blue;
+}
+.external-class {
+  background-color: brown;
+}
+
+#a-tag {
+  background-color: cadetblue;
+}
+
+h3 {
+  color: brown;
+}
+
+.container {
+  padding: 15px;
+}
+
+h2 {
+  font-size: 36px;
+  color: yellowgreen;
+  border: 1px solid black;
+}
+
+.flex-box-container {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
