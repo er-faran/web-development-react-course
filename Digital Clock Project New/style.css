@@ -1,0 +1,49 @@
+body {
+  background-color: orange;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Poppins", serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .main-container {
+    background-color: orangered;
+    padding: 5% 8%;
+    border-radius: 8px;
+
+    .date-day-container {
+      color: white;
+      margin-bottom: 15px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .time-main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+
+      .time-item-container {
+        background-color: black;
+        border-radius: 8px;
+        color: white;
+        min-width: 70px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+
+        .time {
+          font-size: 45px;
+        }
+        .description {
+          font-size: 15px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
