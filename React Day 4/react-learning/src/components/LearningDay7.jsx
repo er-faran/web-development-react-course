@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import usePostData from "../hooks/usePostsData";
+import SomethingWentWrong from "./SomethingWentWrong";
 
 const LearningDay7 = () => {
-  const [data] = usePostData();
+  const [data, isAPIError] = usePostData();
 
   // const [postData, setPostData] = useState([]);
   // Asyncronous Operation
@@ -63,14 +64,18 @@ const LearningDay7 = () => {
       <br />
 
       <h2>Posts Data</h2>
-      {data?.map((item, index) => {
-        return (
-          <div className="post-item" key={item.id}>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-          </div>
-        );
-      })}
+      {isAPIError ? (
+        <SomethingWentWrong />
+      ) : (
+        data?.map((item, index) => {
+          return (
+            <div className="post-item" key={item.id}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          );
+        })
+      )}
     </>
   );
 };
