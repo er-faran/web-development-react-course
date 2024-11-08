@@ -1,12 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "../themeContext";
 
 // useState - to store data within component
 // useEffect - componentDidMount()
 // Custom Hook
 
 const LearningHookComponent = ({ id }) => {
+  // get theme
+  const { isDarkTheme } = useContext(ThemeContext);
+  console.log("theme", isDarkTheme);
+
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [todo, setTodo] = useState({});
