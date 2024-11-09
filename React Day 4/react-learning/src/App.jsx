@@ -7,6 +7,8 @@ import LearningDay7 from "./components/LearningDay7.jsx";
 import LearningDay8 from "./components/LearningDay8.jsx";
 import Learning9 from "./components/Learning9.jsx";
 import { ThemeProvider } from "./themeContext.jsx";
+import Dashboard from "./components/HOC/Dashboard.jsx";
+import Home from "./components/MUI/Home.jsx";
 
 function App() {
   const [appName, setAppName] = useState("React Learning");
@@ -19,8 +21,8 @@ function App() {
 
   return (
     <>
-      <ThemeProvider>
-        <LearningHookComponent id={id} />
+      {/* <ThemeProvider> */}
+      {/* <LearningHookComponent id={id} />
         <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
         <FunctionalComponent appName={appName} />
         <ClassComponent />
@@ -37,8 +39,10 @@ function App() {
 
         <h3>Dashboard</h3>
         <span>Logged in user : {user}</span>
-        <Learning9 isDarkTheme={isDarkTheme} />
-      </ThemeProvider>
+        <Learning9 isDarkTheme={isDarkTheme} /> */}
+      {/* </ThemeProvider> */}
+      {/* <Dashboard /> */}
+      <Home />
     </>
   );
 }
