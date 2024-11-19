@@ -9,6 +9,8 @@ import Learning9 from "./components/Learning9.jsx";
 import { ThemeProvider } from "./themeContext.jsx";
 import Dashboard from "./components/HOC/Dashboard.jsx";
 import Home from "./components/MUI/Home.jsx";
+import Component1 from "./components/ContextAPI/Component1.jsx";
+import { UsernameContext } from "./context/UsernameContext.js";
 
 function App() {
   const [appName, setAppName] = useState("React Learning");
@@ -18,6 +20,7 @@ function App() {
   // localStorage.setItem("username", "Sameer");
   // localStorage.setItem("age", 18);
   // localStorage.clear();
+  const userName = "Sam";
 
   return (
     <>
@@ -42,7 +45,13 @@ function App() {
         <Learning9 isDarkTheme={isDarkTheme} /> */}
       {/* </ThemeProvider> */}
       {/* <Dashboard /> */}
-      <Home />
+      {/* <Home /> */}
+      <UsernameContext.Provider
+        value={{ userName: "Sam", age: 18, cart: { id: 123, price: 8898 } }}
+      >
+        {/* <Component1 value={userName} /> */}
+        <Component1 />
+      </UsernameContext.Provider>
     </>
   );
 }

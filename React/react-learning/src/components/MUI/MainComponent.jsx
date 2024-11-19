@@ -8,11 +8,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LayersIcon from "@mui/icons-material/Layers";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import { Badge } from "@mui/material";
 import DashboardMainComponent from "./DashboardMainComponent";
+import RegistrationComponent from "./RegistrationComponent";
 
 const NAVIGATION = [
   {
@@ -32,6 +34,11 @@ const NAVIGATION = [
         <ShoppingCartIcon />
       </Badge>
     ),
+  },
+  {
+    segment: "registration",
+    title: "Resgistration",
+    icon: <PersonAddAltIcon />,
   },
   {
     kind: "divider",
@@ -93,6 +100,8 @@ function DemoPageContent({ pathname }) {
     >
       {pathname == "/dashboard" ? (
         <DashboardMainComponent />
+      ) : pathname == "/registration" ? (
+        <RegistrationComponent />
       ) : (
         <Typography>Dashboard content for {pathname}</Typography>
       )}
@@ -114,16 +123,18 @@ function MainComponent(props) {
 
   return (
     // preview-start
-    <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-    >
-      <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
-      </DashboardLayout>
-    </AppProvider>
+    <div className="main-content-container">
+      <AppProvider
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+        window={demoWindow}
+      >
+        <DashboardLayout>
+          <DemoPageContent pathname={router.pathname} />
+        </DashboardLayout>
+      </AppProvider>
+    </div>
     // preview-end
   );
 }
