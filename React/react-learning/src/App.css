@@ -22,3 +22,7 @@
   background-color: white;
   color: black;
 }
+
+div.main-content-container > div {
+  width: 100%;
+}
