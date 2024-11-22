@@ -14,6 +14,7 @@ import { UsernameContext } from "./context/UsernameContext.js";
 import SomeComponent from "./components/ErrorBoundary/SomeComponent.jsx";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import LoadingComponet from "./components/Lazy/LoadingComponet.jsx";
+import Posts from "./components/Axios/Posts.jsx";
 // import Albumb from "./components/Lazy/Albumb.jsx";
 const Albumb = lazy(() => import("./components/Lazy/Albumb.jsx"));
 
@@ -56,7 +57,7 @@ function App() {
       >
         <Component1 />
       </UsernameContext.Provider> */}
-      <ErrorBoundary>
+      {/* <ErrorBoundary>
         <SomeComponent names={["Sameer"]} />
       </ErrorBoundary>
 
@@ -65,7 +66,9 @@ function App() {
       </ErrorBoundary>
       <Suspense fallback={<LoadingComponet />}>
         <Albumb />
-      </Suspense>
+      </Suspense> */}
+      <h1>Axios</h1>
+      <Posts />
     </>
   );
 }
