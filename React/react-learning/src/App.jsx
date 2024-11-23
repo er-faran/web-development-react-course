@@ -15,8 +15,11 @@ import SomeComponent from "./components/ErrorBoundary/SomeComponent.jsx";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import LoadingComponet from "./components/Lazy/LoadingComponet.jsx";
 import Posts from "./components/Axios/Posts.jsx";
+import Todo from "./components/Todo/Todo.jsx";
 // import Albumb from "./components/Lazy/Albumb.jsx";
 const Albumb = lazy(() => import("./components/Lazy/Albumb.jsx"));
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
 
 function App() {
   const [appName, setAppName] = useState("React Learning");
@@ -67,8 +70,11 @@ function App() {
       <Suspense fallback={<LoadingComponet />}>
         <Albumb />
       </Suspense> */}
-      <h1>Axios</h1>
-      <Posts />
+      {/* <h1>Axios</h1>
+      <Posts /> */}
+      <Provider store={store}>
+        <Todo />
+      </Provider>
     </>
   );
 }
