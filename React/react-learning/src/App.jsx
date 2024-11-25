@@ -20,6 +20,7 @@ import Todo from "./components/Todo/Todo.jsx";
 const Albumb = lazy(() => import("./components/Lazy/Albumb.jsx"));
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
+import SomethingWentWrong from "./components/SomethingWentWrong.jsx";
 
 function App() {
   const [appName, setAppName] = useState("React Learning");
@@ -72,9 +73,7 @@ function App() {
       </Suspense> */}
       {/* <h1>Axios</h1>
       <Posts /> */}
-      <Provider store={store}>
-        <Todo />
-      </Provider>
+      <Todo />
     </>
   );
 }
