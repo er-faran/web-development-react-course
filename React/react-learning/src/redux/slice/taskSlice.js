@@ -13,10 +13,10 @@ const taskSlice = createSlice({
       state.tasks = [...state.tasks, action.payload];
     },
     deleteTodo: (state, action) => {
-      state.tasks = state.tasks.filter((item) => item.id != action.id);
+      state.tasks = state.tasks.filter((item) => item.id != action.payload);
     },
   },
 });
 
-export const { addTodo, deleteTodo } = taskSlice.actions;
-export default taskSlice.reducer;
+export const { addTodo, deleteTodo } = taskSlice.actions; // Components to update store
+export default taskSlice.reducer; // For Store
