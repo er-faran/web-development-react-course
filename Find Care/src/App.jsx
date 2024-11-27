@@ -1,10 +1,17 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavbarComponent from "./components/Navbarcomponent";
+import Home from "./components/Home";
+
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl bg-gray-600">Find Care</h1>
-    </>
+    <Router>
+      <NavbarComponent />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
