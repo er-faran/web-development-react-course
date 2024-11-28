@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const NavbarComponent = ({ isAdminNavbar = false }) => {
+const NavbarComponent = ({ isAdminNavbar = true }) => {
   return (
     <div>
       <nav className="bg-white flex justify-between items-center px-36 pt-3 pb-2">
@@ -28,7 +28,7 @@ const NavbarComponent = ({ isAdminNavbar = false }) => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "text-black text-sm font-medium relative after:content-[''] after:block after:w-[6px] after:h-[2px] after:bg-blue-500 after:mx-auto after:mt-1"
+                    ? "text-black text-sm font-medium relative after:content-[''] after:block after:w-[24px] after:h-[2px] after:bg-blue-500 after:mx-auto after:mt-1"
                     : "text-black text-sm hover:text-blue-500 font-medium"
                 }
               >
@@ -40,8 +40,8 @@ const NavbarComponent = ({ isAdminNavbar = false }) => {
                 to="/All doctor"
                 className={({ isActive }) =>
                   isActive
-                    ? "text-black text-sm border-b-2 border-blue-500 font-medium"
-                    : "text-black  text-sm font-medium"
+                    ? "text-black text-sm font-medium relative after:content-[''] after:block after:w-[48px] after:h-[2px] after:bg-blue-500 after:mx-auto after:mt-1"
+                    : "text-black text-sm hover:text-blue-500 font-medium"
                 }
               >
                 ALL DOCTORS
@@ -52,8 +52,8 @@ const NavbarComponent = ({ isAdminNavbar = false }) => {
                 to="/About"
                 className={({ isActive }) =>
                   isActive
-                    ? "text-black text-sm border-b-2 border-blue-500 font-medium"
-                    : "text-black text-sm font-medium"
+                    ? "text-black text-sm font-medium relative after:content-[''] after:block after:w-[24px] after:h-[2px] after:bg-blue-500 after:mx-auto after:mt-1"
+                    : "text-black text-sm hover:text-blue-500 font-medium"
                 }
               >
                 ABOUT
@@ -64,8 +64,8 @@ const NavbarComponent = ({ isAdminNavbar = false }) => {
                 to="/contact"
                 className={({ isActive }) =>
                   isActive
-                    ? "text-black text-sm border-b-2 border-blue-500 font-medium"
-                    : "text-black text-sm font-medium"
+                    ? "text-black text-sm font-medium relative after:content-[''] after:block after:w-[36px] after:h-[2px] after:bg-blue-500 after:mx-auto after:mt-1"
+                    : "text-black text-sm hover:text-blue-500 font-medium"
                 }
               >
                 CONTACT
