@@ -5,3 +5,13 @@
 * {
   font-family: "Outfit", sans-serif;
 }
+
+@layer components {
+  .section-heading {
+    @apply text-3xl font-semibold mb-5;
+  }
+
+  .section-description {
+    @apply text-sm max-w-96;
+  }
+}

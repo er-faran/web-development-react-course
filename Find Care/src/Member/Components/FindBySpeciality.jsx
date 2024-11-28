@@ -4,10 +4,10 @@ const FindBySpeciality = () => {
   return (
     <div className="text-center">
       <div>
-        <h2 className="text-3xl font-semibold mb-5">Find by Speciality</h2>
+        <h2 className="section-heading">Find by Speciality</h2>
       </div>
       <div className="flex justify-center mb-5">
-        <p className="text-sm max-w-96">
+        <p className="section-description">
           Simply browse through our extensive list of trusted doctors, schedule
           your appointment hassle-free.
         </p>

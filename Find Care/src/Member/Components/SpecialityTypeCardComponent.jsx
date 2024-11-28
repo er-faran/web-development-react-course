@@ -41,7 +41,10 @@ const SpecialityTypeCardComponent = () => {
     return (
       <div key={item?.id} className="min-w-28">
         <div className="flex justify-center mb-2">
-          <img className="w-16 sm:w-24 transform hover:scale-110 transition-transform" src={item?.imgSrc} />
+          <img
+            className="w-16 sm:w-24 transform hover:scale-110 transition-transform"
+            src={item?.imgSrc}
+          />
         </div>
         <div className="text-xs">{item?.specialityText}</div>
       </div>
