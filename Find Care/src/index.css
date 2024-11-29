@@ -15,3 +15,8 @@
     @apply text-sm max-w-96;
   }
 }
+
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 111 255 / var(--tw-bg-opacity));
+}
