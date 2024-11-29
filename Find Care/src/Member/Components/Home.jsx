@@ -3,6 +3,8 @@ import NavbarComponent from "../../Common/components/NavbarComponent";
 import FindBySpeciality from "./FindBySpeciality";
 import BannerComponent from "./BannerComponent";
 import DoctorListComponent from "./DoctorListComponent";
+import CreateAccountBanner from "./CreateAccountBanner"
+import FooterComponent from "../../Common/components/FooterComponent";
 
 const Home = () => {
   return (
@@ -19,6 +21,8 @@ const Home = () => {
       {/* <div className="mb-8"> */}
       <DoctorListComponent />
       {/* </div> */}
+      <CreateAccountBanner />
+      <FooterComponent />
     </div>
   );
 };
