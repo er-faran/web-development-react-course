@@ -1,14 +1,25 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const NavbarComponent = ({ isAdminNavbar = true }) => {
+const NavbarComponent = () => {
+  let isAdminNavbar = false;
+  const adminRoutes = [
+    "/admin-dashboard",
+    "/all-appointments",
+    "/add-doctor",
+    "/doctor-list",
+  ];
+
+  const location = useLocation();
+  if (adminRoutes.includes(location.pathname)) {
+    isAdminNavbar = true;
+  }
+
   return (
     <div>
       <nav className="bg-white flex justify-between items-center px-36 pt-3 pb-2">
         {/* Logo and Name */}
         <div className="flex items-center">
           <NavLink to="/">
-            {" "}
             <img
               src={
                 isAdminNavbar
@@ -72,9 +83,12 @@ const NavbarComponent = ({ isAdminNavbar = true }) => {
               </NavLink>
             </li>
             <li>
-              <button className="text-black text-sm px-4 py-1 rounded-full border border-gray-300">
+              <NavLink
+                className="text-black text-sm px-4 py-1 rounded-full border border-gray-300"
+                to="/admin-dashboard"
+              >
                 Admin Panel
-              </button>
+              </NavLink>
             </li>
           </ul>
         )}
