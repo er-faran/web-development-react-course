@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const DoctorCardComponent = ({ data }) => {
@@ -7,7 +6,7 @@ const DoctorCardComponent = ({ data }) => {
     <div className="border rounded-2xl">
       <div>
         <img
-          className="bg-[#EAEFFF] max-w-64 aspect-square rounded-t-2xl"
+          className="bg-[#EAEFFF] max-w-52 aspect-square rounded-t-2xl"
           src={data?.doctorImg}
         />
       </div>

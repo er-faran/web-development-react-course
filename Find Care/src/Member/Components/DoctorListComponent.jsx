@@ -1,4 +1,3 @@
-import React from "react";
 import DoctorCardComponent from "./DoctorCardComponent";
 
 const DoctorListComponent = () => {
