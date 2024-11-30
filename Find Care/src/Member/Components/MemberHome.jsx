@@ -7,7 +7,7 @@ import FooterComponent from "../../Common/components/FooterComponent";
 const MemberHome = () => {
   return (
     <div>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-12">
         <BannerComponent />
 
         <FindBySpeciality />
