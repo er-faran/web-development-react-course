@@ -83,7 +83,7 @@ const NavbarComponent = () => {
           </li>
           <li>
             <NavLink
-              className="text-black text-sm px-4 py-1 rounded-full border border-gray-300"
+              className="text-black text-sm px-4 py-1 rounded-full border border-gray-300 hover:border-blue-800 hover:text-blue-800"
               to="/admin-dashboard"
             >
               Admin Panel
@@ -92,10 +92,15 @@ const NavbarComponent = () => {
         </ul>
       )}
 
+      {/* <button className="bg-[#5c74fc] text-white text-sm px-6 py-2 rounded-full">
+        </button> */}
       {isAdminNavbar === false && (
-        <button className="bg-[#5c74fc] text-white text-sm px-6 py-2 rounded-full">
+        <NavLink
+          to="/signup"
+          className="bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-6 py-2 rounded-full"
+        >
           Create Account
-        </button>
+        </NavLink>
       )}
 
       {/* <div
