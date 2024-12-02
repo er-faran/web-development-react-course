@@ -1,15 +1,31 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomeComponent from "./components/HomeComponent"
+import AboutUsComponent from "./components/AboutUsComponent";
 import BannerComponent from "./components/BannerComponent";
 import FooterComponent from "./components/FooterComponent";
+import NavbarComponent from "./components/NavBarComponent";
+import ContactUsComponent from "./components/ContactUsComponent";
+import { Home } from "@mui/icons-material";
+
 
 function App() {
   return (
-    <>
-      {/* <h1 className="text-3xl bg-gray-600">Find Care</h1> */}
-      <BannerComponent />
-      <FooterComponent />
-    </>
+
+    <Router>
+      <NavbarComponent />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<AboutUsComponent />} />
+        <Route path="/contact" element={<ContactUsComponent />} />
+
+
+
+      </Routes>
+    </Router>
+
   );
-}
+};
 
 export default App;
