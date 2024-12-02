@@ -1,10 +1,13 @@
-import React from "react";
 import NavbarComponent from "../../Common/components/NavbarComponent";
 import FindBySpeciality from "./FindBySpeciality";
 import BannerComponent from "./BannerComponent";
 import DoctorListComponent from "./DoctorListComponent";
+<<<<<<< HEAD
 import CreateAccountBanner from "./CreateAccountBanner"
 import FooterComponent from "../../Common/components/FooterComponent";
+=======
+import CreateAccountBanner from "./CreateAccountBanner";
+>>>>>>> 7fd155a7d77a710b4ec4a9c394a6c5b8d9a8f99b
 
 const Home = () => {
   return (
@@ -22,7 +25,10 @@ const Home = () => {
       <DoctorListComponent />
       {/* </div> */}
       <CreateAccountBanner />
+<<<<<<< HEAD
       <FooterComponent />
+=======
+>>>>>>> 7fd155a7d77a710b4ec4a9c394a6c5b8d9a8f99b
     </div>
   );
 };
