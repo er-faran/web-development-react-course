@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import DoctorCardComponent from "./DoctorCardComponent";
 
-const DoctorListComponent = ({ isHeaderShow = true, dataToFilter = {} }) => {
+const DoctorListComponent = ({
+  isHeaderShow = true,
+  specialityFilter = "",
+}) => {
   const doctorListData = [
     {
       id: "1",
@@ -51,18 +54,44 @@ const DoctorListComponent = ({ isHeaderShow = true, dataToFilter = {} }) => {
       doctorImg:
         "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
     },
+    {
+      id: "7",
+      name: "Sam 7",
+      speciality: "Neurologist",
+      status: "Available",
+      doctorImg:
+        "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
+    },
+    {
+      id: "8",
+      name: "Sam 8",
+      speciality: "Pediatricians",
+      status: "Available",
+      doctorImg:
+        "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
+    },
+    {
+      id: "9",
+      name: "Sam 9",
+      speciality: "Dermatologist",
+      status: "Available",
+      doctorImg:
+        "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
+    },
   ];
 
   const [filteredData, setFilteredData] = useState(doctorListData);
 
   useEffect(() => {
-    if (Object.values(dataToFilter)?.length > 0) {
+    if (specialityFilter !== "" && specialityFilter) {
       const filterData = doctorListData.filter((doctor) => {
-        return doctor.speciality === dataToFilter.speciality;
+        return doctor.speciality === specialityFilter;
       });
       setFilteredData(filterData);
+    } else {
+      setFilteredData(doctorListData);
     }
-  }, []);
+  }, [specialityFilter]);
 
   return (
     <div>
@@ -80,9 +109,13 @@ const DoctorListComponent = ({ isHeaderShow = true, dataToFilter = {} }) => {
           </div>
         )}
         <div className="flex gap-5 justify-center align-middle flex-wrap">
-          {filteredData?.map((doctor) => {
-            return <DoctorCardComponent key={doctor.id} data={doctor} />;
-          })}
+          {filteredData?.length === 0 ? (
+            <p>No Doctor Available for the selected criteria.</p>
+          ) : (
+            filteredData?.map((doctor) => {
+              return <DoctorCardComponent key={doctor.id} data={doctor} />;
+            })
+          )}
         </div>
       </div>
     </div>

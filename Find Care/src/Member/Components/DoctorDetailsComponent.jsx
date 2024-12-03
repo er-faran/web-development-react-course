@@ -94,7 +94,7 @@ const DoctorDetailsComponent = () => {
         <div>
           <DoctorListComponent
             isHeaderShow={false}
-            dataToFilter={{ speciality: "General Physician" }}
+            specialityFilter={"General Physician"}
           />
         </div>
       </div>
