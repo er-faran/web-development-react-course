@@ -7,6 +7,7 @@ import SignInComponent from "./Common/components/SignInComponent.jsx";
 import SignUpComponent from "./Common/components/SignUpComponent.jsx";
 import DoctorDetailsComponent from "./Member/Components/DoctorDetailsComponent.jsx";
 import RouteNotFoundComponent from "./Common/components/RouteNotFoundComponent.jsx";
+import AllDoctorComponent from "./Member/Components/AllDoctorComponent.jsx";
 function App() {
   return (
     <div>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
 
           {/* Common Routes */}
+          <Route path="all-doctor" element={<AllDoctorComponent />} />
           <Route
             path="/doctor-details/:id"
             element={<DoctorDetailsComponent />}
