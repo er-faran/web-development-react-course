@@ -7,6 +7,10 @@ import SignInComponent from "./Common/components/SignInComponent.jsx";
 import SignUpComponent from "./Common/components/SignUpComponent.jsx";
 import DoctorDetailsComponent from "./Member/Components/DoctorDetailsComponent.jsx";
 import RouteNotFoundComponent from "./Common/components/RouteNotFoundComponent.jsx";
+import About from "./Member/Components/About.jsx";
+import ContactComponent from "./Member/Components/ContactComponent.jsx";
+import FooterComponent from "./Common/components/FooterComponent.jsx";
+
 function App() {
   return (
     <div>
@@ -15,6 +19,8 @@ function App() {
         <Routes>
           {/* Member Routes */}
           <Route path="/" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/contact" element={<ContactComponent />} />
 
           {/* Common Routes */}
           <Route
@@ -26,6 +32,8 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+          
 
           {/* Unknown Routes */}
           <Route path="*" element={<RouteNotFoundComponent />} />
