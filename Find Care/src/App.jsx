@@ -38,6 +38,7 @@ function App() {
           {/* Unknown Routes */}
           <Route path="*" element={<RouteNotFoundComponent />} />
         </Routes>
+        <FooterComponent/> 
       </Router>
     </div>
   );

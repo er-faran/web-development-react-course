@@ -47,7 +47,6 @@ const About =() =>{
   </div>
 </div>
         </div>
-        <div className="mt-40"><FooterComponent/></div>
     </div>
     );
 }
