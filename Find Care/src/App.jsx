@@ -7,14 +7,7 @@ import SignInComponent from "./Common/components/SignInComponent.jsx";
 import SignUpComponent from "./Common/components/SignUpComponent.jsx";
 import DoctorDetailsComponent from "./Member/Components/DoctorDetailsComponent.jsx";
 import RouteNotFoundComponent from "./Common/components/RouteNotFoundComponent.jsx";
-<<<<<<< HEAD
-import About from "./Member/Components/About.jsx";
-import ContactComponent from "./Member/Components/ContactComponent.jsx";
-import FooterComponent from "./Common/components/FooterComponent.jsx";
-
-=======
 import AllDoctorComponent from "./Member/Components/AllDoctorComponent.jsx";
->>>>>>> origin/main
 function App() {
   return (
     <div>
