@@ -39,12 +39,10 @@ function App() {
           <Route path="/add-doctor" element={<AdminDashboard />} />
           <Route path="/doctor-list" element={<AdminDashboard />} />
 
-          
-
           {/* Unknown Routes */}
           <Route path="*" element={<RouteNotFoundComponent />} />
         </Routes>
-        <FooterComponent/> 
+        <FooterComponent />
       </Router>
     </div>
   );

@@ -88,7 +88,7 @@ export default function SignUpComponent() {
   };
 
   return (
-    <Card variant="outlined" className="mx-auto md:mt-24 xs:mt-10">
+    <Card variant="outlined" className="mx-auto md:mt-24 xs:mt-10 mb-10">
       <Typography
         component="h1"
         variant="h4"
