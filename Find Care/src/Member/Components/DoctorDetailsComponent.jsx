@@ -22,7 +22,7 @@ const DoctorDetailsComponent = () => {
     );
 
   return (
-    <div className="px-36">
+    <div className="px-36 mb-8">
       <div className="flex gap-5 justify-center">
         <div className="w-[23%]">
           {/* <div className=" relative"> */}

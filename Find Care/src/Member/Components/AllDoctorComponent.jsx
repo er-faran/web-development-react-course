@@ -61,7 +61,7 @@ const AllDoctorComponent = () => {
             Gastroenterologist
           </div>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 mb-8">
           <DoctorListComponent
             isHeaderShow={false}
             specialityFilter={selectedSpeciality}
