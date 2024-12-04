@@ -1,5 +1,25 @@
+import {useLocation } from "react-router-dom";
+
 const FooterComponent = () => {
-  return (
+
+  let isAdminNavbar = false;
+
+  const adminRoutes = [
+    "/admin-dashboard",
+    "/all-appointments",
+    "/add-doctor",
+    "/doctor-list",
+  ];
+
+  const location = useLocation();
+  if (adminRoutes.includes(location.pathname)) {
+    isAdminNavbar = true;
+  }
+
+  if(isAdminNavbar){
+    return null;
+  }
+   return (
     <div className="mb-5 px-36">
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 text-sm ">
         <div>
