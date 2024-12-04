@@ -11,13 +11,14 @@ import AllDoctorComponent from "./Member/Components/AllDoctorComponent.jsx";
 import About from "./Member/Components/About.jsx";
 import ContactComponent from "./Member/Components/ContactComponent.jsx";
 import FooterComponent from "./Common/components/FooterComponent.jsx";
+import AddDoctorComponent from "./Admin/Components/AddDoctorComponent.jsx";
 
 function App() {
   return (
     <div>
       <Router>
         <NavbarComponent />
-        
+
         <Routes>
           {/* Member Routes */}
           <Route path="/" element={<Home />} />
@@ -36,7 +37,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/all-appointments" element={<AdminDashboard />} />
-          <Route path="/add-doctor" element={<AdminDashboard />} />
+          <Route path="/add-doctor" element={<AddDoctorComponent />} />
           <Route path="/doctor-list" element={<AdminDashboard />} />
 
           {/* Unknown Routes */}

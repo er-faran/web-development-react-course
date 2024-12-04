@@ -15,18 +15,16 @@ const NavbarComponent = () => {
   }
 
   return (
-    <nav className={
-      isAdminNavbar
+    <nav
+      className={
+        isAdminNavbar
           ? "bg-white flex justify-between items-center pt-3 pb-2 border-b border-gray-500 mb-4"
           : "bg-white flex justify-between items-center mx-36 pt-3 pb-2 border-b border-gray-500 mb-4"
-    }>
+      }
+    >
       {/* Logo and Name */}
       <div className="flex items-center">
-        <NavLink to={
-          isAdminNavbar
-                ? "/admin-dashboard"
-                : "/"
-        }>
+        <NavLink to={isAdminNavbar ? "/admin-dashboard" : "/"}>
           <img
             src={
               isAdminNavbar
@@ -34,14 +32,12 @@ const NavbarComponent = () => {
                 : "https://prescripto.vercel.app/assets/logo-BNCDj_dh.svg"
             }
             alt="Logo"
-            className={
-              isAdminNavbar
-                  ? "h-10 w-13 mr-1 ml-8"
-                  : "h-10 w-13 mr-1"
-            }
+            className={isAdminNavbar ? "h-10 w-13 mr-1 ml-8" : "h-10 w-13 mr-1"}
           />
         </NavLink>
-        <div className="text text-gray-600 text-xs rounded-2xl border border-gray-600 px-2">Admin</div>
+        {/* <div className="text text-gray-600 text-xs rounded-2xl border border-gray-600 px-2">
+          Admin
+        </div> */}
       </div>
 
       {isAdminNavbar === false && (
@@ -115,11 +111,11 @@ const NavbarComponent = () => {
           Create Account
         </NavLink>
       )}
-      <NavLink
+      {/* <NavLink
           className="bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-10 py-2 mr-10 rounded-full"
       >
         Logout
-      </NavLink>
+      </NavLink> */}
 
       {/* <div
         style={{
