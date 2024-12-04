@@ -1,7 +1,16 @@
 import React from "react";
+import Sidebar from "./Sidebar";
+
 
 const AdminDashboard = () => {
-  return <div>AdminDashboard</div>;
+  return (
+    <div className="flex">
+      {/* Sidebar */}
+      <Sidebar />
+      <div>Hello world</div>
+      
+    </div>
+  );
 };
 
 export default AdminDashboard;

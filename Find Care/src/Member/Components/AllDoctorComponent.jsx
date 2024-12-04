@@ -4,7 +4,7 @@ import DoctorListComponent from "./DoctorListComponent";
 const AllDoctorComponent = () => {
   const [selectedSpeciality, setSelectedSpeciality] = useState("");
   return (
-    <div className="px-36">
+    <div className="px-36 mb-32">
       <h4 className="text-gray-600">Browse through the doctors specialist.</h4>
       <div className="mt-7 flex gap-3 text-sm text-gray-600">
         <div className="w-64 flex flex-col gap-4">
