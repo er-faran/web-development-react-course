@@ -2,7 +2,6 @@ import BannerComponent from "./BannerComponent";
 import FindBySpeciality from "./FindBySpeciality";
 import DoctorListComponent from "./DoctorListComponent";
 import CreateAccountBanner from "./CreateAccountBanner";
-import FooterComponent from "../../Common/components/FooterComponent";
 
 const MemberHome = () => {
   return (
@@ -15,8 +14,6 @@ const MemberHome = () => {
         <DoctorListComponent />
 
         <CreateAccountBanner />
-
-        <FooterComponent />
       </div>
     </div>
   );
