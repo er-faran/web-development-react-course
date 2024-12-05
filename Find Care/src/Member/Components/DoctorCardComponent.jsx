@@ -11,7 +11,7 @@ const DoctorCardComponent = ({ data }) => {
     >
       <div>
         <img
-          className="bg-[#EAEFFF] max-w-52 aspect-square rounded-t-2xl"
+          className="bg-[#EAEFFF] max-w-40 lg:max-w-52 aspect-square rounded-t-2xl"
           src={data?.doctorImg}
         />
       </div>

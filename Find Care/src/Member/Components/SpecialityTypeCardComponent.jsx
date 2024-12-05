@@ -39,7 +39,7 @@ const SpecialityTypeCardComponent = () => {
 
   return specialityCardData.map((item) => {
     return (
-      <div key={item?.id} className="min-w-28">
+      <div key={item?.id} className="w-[40%] lg:w-28">
         <div className="flex justify-center mb-2">
           <img
             className="w-16 sm:w-24 transform hover:scale-110 transition-transform"

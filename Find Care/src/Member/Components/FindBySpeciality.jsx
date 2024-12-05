@@ -12,7 +12,7 @@ const FindBySpeciality = () => {
           your appointment hassle-free.
         </p>
       </div>
-      <div className="flex gap-2 justify-center align-middle">
+      <div className="flex gap-2 flex-wrap justify-center align-middle">
         <SpecialityTypeCardComponent />
       </div>
     </div>
