@@ -5,7 +5,7 @@ import CreateAccountBanner from "./CreateAccountBanner";
 
 const MemberHome = () => {
   return (
-    <div>
+    <div className="max-w-screen">
       <div className="flex flex-col gap-12">
         <BannerComponent />
 

@@ -2,6 +2,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -67,16 +68,31 @@ const DoctorDetailsComponent = () => {
 
           <div className="mt-8 font-medium text-[#565656]">
             <h4>Booking slots</h4>
-            <div className="max-w-80 mt-3">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div className="mt-3">
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
                   <DateTimePicker
                     label="Book Appointment"
                     value={bookingDate}
                     onChange={(newValue) => setBookingDate(newValue)}
+                    minutesStep={15}
+                    disablePast
+                    skipDisabled={true}
                     // defaultValue={dayjs(Date.now())}
                   />
                 </DemoContainer>
+              </LocalizationProvider> */}
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <StaticDateTimePicker
+                  value={bookingDate}
+                  onChange={(newValue) => setBookingDate(newValue)}
+                  minutesStep={15}
+                  disablePast
+                  skipDisabled={true}
+                  label="Book Appointment"
+                  orientation="landscape"
+                />
               </LocalizationProvider>
             </div>
           </div>

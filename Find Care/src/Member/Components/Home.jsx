@@ -2,7 +2,7 @@ import MemberHome from "./MemberHome";
 
 const Home = () => {
   return (
-    <div className="px-36">
+    <div className="px-4 lg:px-36">
       <MemberHome />
     </div>
   );
