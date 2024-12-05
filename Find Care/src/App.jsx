@@ -12,6 +12,7 @@ import About from "./Member/Components/About.jsx";
 import ContactComponent from "./Member/Components/ContactComponent.jsx";
 import FooterComponent from "./Common/components/FooterComponent.jsx";
 import AddDoctorComponent from "./Admin/Components/AddDoctorComponent.jsx";
+import DoctorListAdminComponent from "./Admin/Components/DoctorsListAdminComponent.jsx";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/all-appointments" element={<AdminDashboard />} />
           <Route path="/add-doctor" element={<AddDoctorComponent />} />
-          <Route path="/doctor-list" element={<AdminDashboard />} />
+          <Route path="/doctor-list" element={<DoctorListAdminComponent />} />
 
           {/* Unknown Routes */}
           <Route path="*" element={<RouteNotFoundComponent />} />
