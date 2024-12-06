@@ -1,7 +1,6 @@
-import {useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const FooterComponent = () => {
-
   let isAdminNavbar = false;
 
   const adminRoutes = [
@@ -16,11 +15,11 @@ const FooterComponent = () => {
     isAdminNavbar = true;
   }
 
-  if(isAdminNavbar){
+  if (isAdminNavbar) {
     return null;
   }
-   return (
-    <div className="mb-5 px-36">
+  return (
+    <div className="mb-5 px-4 lg:px-36">
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 text-sm ">
         <div>
           <img

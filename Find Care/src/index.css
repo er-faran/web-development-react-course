@@ -16,7 +16,7 @@
   }
 
   .all-doctor-left-button {
-    @apply border border-gray-300 cursor-pointer p-2 rounded-md;
+    @apply border border-gray-300 cursor-pointer p-2 rounded-md w-6/12 lg:w-full;
   }
 
   .active-button {

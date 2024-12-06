@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import DoctorCardComponent from "./DoctorCardComponent";
 import { useNavigate,useLocation } from "react-router-dom";
