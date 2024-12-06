@@ -6,13 +6,13 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-screen bg-white border-r">
+    <div className="min-h-full bg-white border-r">
       <div className="flex flex-col mt-6">
         <NavLink
           to="/admin-dashboard"
           className={({ isActive }) =>
             isActive
-              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-primary"
+              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-blue-500"
               : "pl-6 py-4 pr-28"
           }
         >
@@ -23,7 +23,7 @@ const Sidebar = () => {
           to="/all-appointments"
           className={({ isActive }) =>
             isActive
-              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-primary"
+              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-blue-500"
               : "pl-6 py-4 pr-28"
           }
         >
@@ -34,7 +34,7 @@ const Sidebar = () => {
           to="/add-doctor"
           className={({ isActive }) =>
             isActive
-              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-primary"
+              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-blue-500"
               : "pl-6 py-4 pr-28"
           }
         >
@@ -45,7 +45,7 @@ const Sidebar = () => {
           to="/doctor-list"
           className={({ isActive }) =>
             isActive
-              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-primary"
+              ? "bg-[#F2F3FF] pl-6 py-4 pr-28 border-r-4 border-blue-500"
               : "pl-6 py-4 pr-28"
           }
         >

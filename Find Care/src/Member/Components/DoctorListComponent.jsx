@@ -1,11 +1,31 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import DoctorCardComponent from "./DoctorCardComponent";
+import { useNavigate,useLocation } from "react-router-dom";
+
 
 const DoctorListComponent = ({
+  
+
+
+
   isHeaderShow = true,
   specialityFilter = "",
+  
 }) => {
+  const navigate = useNavigate();
+  let isAdminNavbar = false;
+  const adminRoutes = [
+    "/admin-dashboard",
+    "/all-appointments",
+    "/add-doctor",
+    "/doctor-list",
+  ];
+
+  const location = useLocation();
+  if (adminRoutes.includes(location.pathname)) {
+    isAdminNavbar = true;
+  }
   const doctorListData = [
     {
       id: "1",
@@ -98,7 +118,9 @@ const DoctorListComponent = ({
     <div>
       <div className="text-center">
         {isHeaderShow && (
-          <div>
+          <div>{isAdminNavbar
+            ?<div className="justify-items-start"><h1 className="ml-6 py-4 text-lg font-medium">All Doctors</h1></div>
+            :<div>
             <div>
               <h2 className="section-heading">Top Doctors to Book</h2>
             </div>
@@ -107,9 +129,12 @@ const DoctorListComponent = ({
                 Simply browse through our extensive list of trusted doctors.
               </p>
             </div>
+            </div>}
           </div>
         )}
-        <div className="flex gap-5 justify-center align-middle flex-wrap">
+        <div className={isAdminNavbar
+        ?"flex gap-5 justify-start ml-6 align-middle flex-wrap"
+        :"flex gap-5 justify-center align-middle flex-wrap"}>
           {filteredData?.length === 0 ? (
             <p>No Doctor Available for the selected criteria.</p>
           ) : (
