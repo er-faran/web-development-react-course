@@ -24,7 +24,7 @@ const AppointmentComponent = ()=> {
   return (
     <div className='flex'>
     <div><Sidebar/></div>
-    <div className='px-4 py-4 bg-[#F8F9FD]'>
+    <div className='px-4 py-4 bg-[#F8F9FD] max-w-[100%]'>
         <div className='py-2 text text-xl'>All Appointments</div>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
