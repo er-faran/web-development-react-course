@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,6 +11,9 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import { getDatabase, ref, child, get } from "firebase/database";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -35,17 +38,37 @@ export default function SignInComponent() {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
+  // Need to Get data from realtime DB
+
+  const navigate = useNavigate();
+
+  const handleSignIn = async (email, password) => {
+    try {
+      const resp = await signInWithEmailAndPassword(auth, email, password);
+      console.log("resp", resp);
+      alert("User Signed In successfully");
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = (event) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
+    event.preventDefault();
+
+    const isFormValid = validateInputs();
+
+    if (!isFormValid) {
       return;
     }
-    const data = new FormData(event.currentTarget);
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email,
+      password,
     });
+    handleSignIn(email, password);
   };
 
   const validateInputs = () => {

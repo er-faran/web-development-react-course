@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import * as React from "react";
 import { NavLink } from "react-router-dom";
 
@@ -10,6 +11,11 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
+
+import { auth, database } from "../../../firebaseConfig";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -37,17 +43,51 @@ export default function SignUpComponent() {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
 
+  function writeUserData(name, email) {
+    // const db = getDatabase();
+    set(ref(database, "users/" + btoa(email)), {
+      username: name,
+      email: email,
+    });
+  }
+
+  function handleSignUp(email, password, name) {
+    // Create user with email and pass.
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        console.log("res", res);
+        alert("User Created Successfully.");
+        writeUserData(name, email);
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode == "auth/weak-password") {
+          alert("The password is too weak.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+  }
+
   const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
+    event.preventDefault();
+
+    const isValidData = validateInputs();
+    if (!isValidData) {
       return;
     }
-    const data = new FormData(event.currentTarget);
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
     console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      password: data.get("password"),
+      email,
+      password,
+      name,
     });
+    handleSignUp(email, password, name);
   };
 
   const validateInputs = () => {
@@ -83,7 +123,6 @@ export default function SignUpComponent() {
       setPasswordError(false);
       setPasswordErrorMessage("");
     }
-
     return isValid;
   };
 
@@ -101,6 +140,7 @@ export default function SignUpComponent() {
         onSubmit={handleSubmit}
         noValidate
         sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }}
+        className="flex flex-col w-full gap-2"
       >
         <FormControl>
           <FormLabel htmlFor="name">Name</FormLabel>
@@ -157,8 +197,8 @@ export default function SignUpComponent() {
           type="submit"
           fullWidth
           variant="contained"
-          onClick={validateInputs}
           className="!bg-[#5c74fc] hover:!bg-blue-800"
+          // onClick={handleSubmit}
         >
           Sign Up
         </Button>
