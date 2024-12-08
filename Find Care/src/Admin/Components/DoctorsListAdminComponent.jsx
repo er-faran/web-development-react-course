@@ -5,7 +5,7 @@ const DoctorListAdminComponent =()=>{
     return(
         <div className="flex"> 
             <div><Sidebar/></div>
-            <div className=" max-w-[75%] ">
+            <div className=" bg-[#F8F9FD]">
                 <DoctorListComponent/>
             </div>
         </div>
