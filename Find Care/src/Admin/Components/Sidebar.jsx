@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-full bg-white border-r">
+    <div className="min-h-[100%] bg-white border-r">
       <div className="flex flex-col mt-6">
         <NavLink
           to="/admin-dashboard"

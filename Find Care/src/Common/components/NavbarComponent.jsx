@@ -20,10 +20,10 @@ const NavbarComponent = () => {
     <nav
       className={`border-b border-gray-500 mb-4 ${
         isAdminNavbar ? "" : "mx-4 lg:mx-36"
-      } bg-white flex items-center justify-between pt-3 pb-2`}
+      } bg-white flex items-center justify-between py-3 pb-2`}
     >
       {/* Logo */}
-      <div className="flex items-center">
+      <div className="flex items-center pl-8">
         <NavLink to={isAdminNavbar ? "/admin-dashboard" : "/"}>
           <img
             src={
