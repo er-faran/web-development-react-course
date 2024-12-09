@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -125,14 +126,19 @@ const NavbarComponent = () => {
               </NavLink>
             </li>
             <li>
-              {!isAdminNavbar && (
-                <NavLink
-                  to="/signup"
-                  className="mt-4 lg:mt-0 bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-6 py-2 rounded-sm lg:rounded-full text-center"
-                >
-                  Create Account
-                </NavLink>
-              )}
+              {!isAdminNavbar &&
+                (!localStorage.getItem("isLoggedIn") ? (
+                  <NavLink
+                    to="/signup"
+                    className="mt-4 lg:mt-0 bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-6 py-2 rounded-sm lg:rounded-full text-center"
+                  >
+                    Create Account
+                  </NavLink>
+                ) : (
+                  <>
+                    <Avatar> MF</Avatar>
+                  </>
+                ))}
             </li>
           </ul>
         )}

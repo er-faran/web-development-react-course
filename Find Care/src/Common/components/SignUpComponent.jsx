@@ -13,9 +13,9 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { ref, set } from "firebase/database";
 
-import { auth, database } from "../../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig.jsx";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -44,7 +44,6 @@ export default function SignUpComponent() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
 
   function writeUserData(name, email) {
-    // const db = getDatabase();
     set(ref(database, "users/" + btoa(email)), {
       username: name,
       email: email,

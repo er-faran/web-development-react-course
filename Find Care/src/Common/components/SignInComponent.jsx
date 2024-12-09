@@ -12,8 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
-import { getDatabase, ref, child, get } from "firebase/database";
+import { auth } from "../../firebaseConfig";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -47,9 +46,12 @@ export default function SignInComponent() {
       const resp = await signInWithEmailAndPassword(auth, email, password);
       console.log("resp", resp);
       alert("User Signed In successfully");
-
+      localStorage.setItem("isLoggedIn", true);
       navigate("/");
     } catch (error) {
+      if (String(error).includes("invalid-credential")) {
+        alert("Wrong Credentials");
+      }
       console.log(error);
     }
   };
