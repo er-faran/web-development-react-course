@@ -15,7 +15,7 @@ import { styled } from "@mui/material/styles";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set } from "firebase/database";
 
-import { auth, database } from "../../firebaseConfig.jsx";
+import { auth, database } from "../../firebaseConfig.js";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
