@@ -51,6 +51,8 @@ export default function SignInComponent() {
     } catch (error) {
       if (String(error).includes("invalid-credential")) {
         alert("Wrong Credentials");
+      } else {
+        alert("Somthing went wrong. Please try again later");
       }
       console.log(error);
     }
