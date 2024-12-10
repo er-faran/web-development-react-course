@@ -6,8 +6,47 @@ import {
   TextField,
 } from "@mui/material";
 import Sidebar from "./Sidebar";
+import { useState } from "react";
+import { ref, set } from "firebase/database";
+import { database } from "../../firebaseConfig";
 
 const AddDoctorComponent = () => {
+  const [doctorData, setDoctorData] = useState({});
+
+  const validateInputs = () => {
+    let isValid = true;
+
+    if (
+      !doctorData.name ||
+      !doctorData.speciality ||
+      !doctorData.email ||
+      !doctorData.degree ||
+      !doctorData.password ||
+      !doctorData.address1 ||
+      !doctorData.experience ||
+      !doctorData.fees ||
+      !doctorData.aboutDoctor
+    ) {
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const writeDataToDB = (data) => {
+    setDoctorData(null);
+
+    set(ref(database, "doctors/" + btoa(data?.email)), data)
+      .then((res) => {
+        setDoctorData(null);
+        alert("Doctor Added Successfully");
+      })
+      .catch((err) => {
+        alert("Something went wrong please try again later");
+        console.log(err);
+      });
+  };
+
   return (
     <div className="flex gap-5 bg-[#F8F9FD]">
       <Sidebar />
@@ -18,7 +57,13 @@ const AddDoctorComponent = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("Submit Called");
+              const isValid = validateInputs();
+              if (!isValid) {
+                alert("Please enter all the required data to proceed");
+                return;
+              }
+
+              writeDataToDB(doctorData);
             }}
             className="flex gap-5 flex-wrap justify-around"
           >
@@ -29,6 +74,10 @@ const AddDoctorComponent = () => {
                 id="name"
                 label="Your name"
                 variant="outlined"
+                value={doctorData?.name}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, name: e.target.value })
+                }
               />
             </div>
 
@@ -43,7 +92,10 @@ const AddDoctorComponent = () => {
                   id="demo-simple-select"
                   //   value={age}
                   label="Speciality"
-                  //   onChange={handleChange}
+                  value={doctorData?.speciality}
+                  onChange={(e) =>
+                    setDoctorData({ ...doctorData, speciality: e.target.value })
+                  }
                 >
                   <MenuItem value={10}>Ten</MenuItem>
                   <MenuItem value={20}>Twenty</MenuItem>
@@ -60,6 +112,10 @@ const AddDoctorComponent = () => {
                 label="Doctor Email"
                 variant="outlined"
                 type="email"
+                value={doctorData?.email}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, email: e.target.value })
+                }
               />
             </div>
 
@@ -70,6 +126,10 @@ const AddDoctorComponent = () => {
                 id="degree"
                 label="Degree"
                 variant="outlined"
+                value={doctorData?.degree}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, degree: e.target.value })
+                }
               />
             </div>
 
@@ -81,6 +141,10 @@ const AddDoctorComponent = () => {
                 label="Set Password"
                 variant="outlined"
                 type="password"
+                value={doctorData?.password}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, password: e.target.value })
+                }
               />
             </div>
 
@@ -91,12 +155,20 @@ const AddDoctorComponent = () => {
                 id="address-1"
                 label="Address 1"
                 variant="outlined"
+                value={doctorData?.address1}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, address1: e.target.value })
+                }
               />
               <TextField
                 size="small"
                 id="address-2"
                 label="Address 2"
                 variant="outlined"
+                value={doctorData?.address2}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, address2: e.target.value })
+                }
               />
             </div>
 
@@ -111,7 +183,10 @@ const AddDoctorComponent = () => {
                   id="demo-simple-select"
                   //   value={age}
                   label="Experience"
-                  //   onChange={handleChange}
+                  value={doctorData?.experience}
+                  onChange={(e) =>
+                    setDoctorData({ ...doctorData, experience: e.target.value })
+                  }
                 >
                   <MenuItem value={1}>1</MenuItem>
                   <MenuItem value={2}>2</MenuItem>
@@ -129,18 +204,31 @@ const AddDoctorComponent = () => {
                 label="Fees"
                 variant="outlined"
                 type="number"
+                value={doctorData?.fees}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, fees: e.target.value })
+                }
               />
             </div>
 
             <div className="w-[100%] flex flex-col gap-2">
               <label htmlFor="about-doctor">About Doctor</label>
-              <textarea id="about-doctor" rows={7} className="border" />
+              <textarea
+                id="about-doctor"
+                rows={7}
+                className="border"
+                value={doctorData?.aboutDoctor}
+                onChange={(e) =>
+                  setDoctorData({ ...doctorData, aboutDoctor: e.target.value })
+                }
+              />
             </div>
 
             <div className="w-full">
               <button
                 className="bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-6 py-2 rounded-full"
                 type="submit"
+                id="add-doctor-submit-button"
               >
                 Add Doctor
               </button>
