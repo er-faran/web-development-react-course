@@ -7,11 +7,11 @@ import {
 } from "@mui/material";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
-import { ref, set } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { database } from "../../firebaseConfig";
 
 const AddDoctorComponent = () => {
-  const [doctorData, setDoctorData] = useState({});
+  const [doctorData, setDoctorData] = useState({ name: "" });
 
   const validateInputs = () => {
     let isValid = true;
@@ -33,18 +33,40 @@ const AddDoctorComponent = () => {
     return isValid;
   };
 
-  const writeDataToDB = (data) => {
-    setDoctorData(null);
+  const writeDataToDB = async (data) => {
+    // setDoctorData(null);
 
-    set(ref(database, "doctors/" + btoa(data?.email)), data)
-      .then((res) => {
-        setDoctorData(null);
-        alert("Doctor Added Successfully");
-      })
-      .catch((err) => {
-        alert("Something went wrong please try again later");
-        console.log(err);
-      });
+    try {
+      const starCountRef = ref(database, "doctors/" + btoa(data?.email));
+      onValue(
+        starCountRef,
+        (snapshot) => {
+          const dbData = snapshot.val();
+          console.log("dbData", dbData);
+
+          if (dbData?.email === data?.email) {
+            alert("Doctor already exists with this email id!");
+          } else {
+            // Email doesn't exist, adding new doctor data
+            set(ref(database, "doctors/" + btoa(data?.email)), data)
+              .then((res) => {
+                // setDoctorData(null);
+                alert("Doctor Added Successfully");
+              })
+              .catch((err) => {
+                alert("Something went wrong please try again later");
+                console.log(err);
+              });
+          }
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } catch (error) {
+      alert("Something went wrong please try again later");
+      console.log(error);
+    }
   };
 
   return (
@@ -72,6 +94,7 @@ const AddDoctorComponent = () => {
               <TextField
                 size="small"
                 id="name"
+                name="name"
                 label="Your name"
                 variant="outlined"
                 value={doctorData?.name}
@@ -97,9 +120,16 @@ const AddDoctorComponent = () => {
                     setDoctorData({ ...doctorData, speciality: e.target.value })
                   }
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={"General physician"}>
+                    General physician
+                  </MenuItem>
+                  <MenuItem value={"Gynecologist"}>Gynecologist</MenuItem>
+                  <MenuItem value={"Dermatologist"}>Dermatologist</MenuItem>
+                  <MenuItem value={"Pediatricians"}>Pediatricians</MenuItem>
+                  <MenuItem value={"Neurologist"}>Neurologist</MenuItem>
+                  <MenuItem value={"Gastroenterologist"}>
+                    Gastroenterologist
+                  </MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -188,9 +218,12 @@ const AddDoctorComponent = () => {
                     setDoctorData({ ...doctorData, experience: e.target.value })
                   }
                 >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={1}>1 Year</MenuItem>
+                  <MenuItem value={2}>2 Year</MenuItem>
+                  <MenuItem value={3}>3 Year</MenuItem>
+                  <MenuItem value={4}>4 Year</MenuItem>
+                  <MenuItem value={5}>5 Year</MenuItem>
+                  <MenuItem value={"5+"}>5+ Years</MenuItem>
                 </Select>
               </FormControl>
             </div>

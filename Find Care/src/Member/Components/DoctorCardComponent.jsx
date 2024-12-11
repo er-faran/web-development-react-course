@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { useNavigate,useLocation } from "react-router-dom";
-import Checkbox from '@mui/material/Checkbox';
+import { useNavigate, useLocation } from "react-router-dom";
+import Checkbox from "@mui/material/Checkbox";
 
 const DoctorCardComponent = ({ data }) => {
   const navigate = useNavigate();
@@ -21,16 +21,23 @@ const DoctorCardComponent = ({ data }) => {
   return (
     <div
       className="border rounded-2xl cursor-pointer"
-      onClick={() => {isAdminNavbar
-        ? null
-        :navigate(`/doctor-details/${data?.id}`)
+      onClick={() => {
+        isAdminNavbar
+          ? null
+          : navigate(`/doctor-details/${btoa(data?.email)}`, {
+              state: {
+                doctorData: data,
+              },
+            });
       }}
     >
       <div>
         <img
-          className={isAdminNavbar
-            ?"bg-[#EAEFFF] transition-all duration-500 max-w-52 aspect-square rounded-t-2xl hover:bg-[#5c74fc]"
-            :"bg-[#EAEFFF] max-w-52 aspect-square rounded-t-2xl"}
+          className={
+            isAdminNavbar
+              ? "bg-[#EAEFFF] transition-all duration-500 max-w-52 aspect-square rounded-t-2xl hover:bg-[#5c74fc]"
+              : "bg-[#EAEFFF] max-w-52 aspect-square rounded-t-2xl"
+          }
           src={data?.doctorImg}
         />
       </div>
@@ -38,10 +45,17 @@ const DoctorCardComponent = ({ data }) => {
       <div className="text-left pl-3 pt-3 pb-5">
         <div className="text-xl">{data?.name}</div>
         <div className="text-[#5C5C5C] text-sm">{data?.speciality}</div>
-        <div>{isAdminNavbar
-        ?<Checkbox defaultChecked />
-        :<FiberManualRecordIcon fontSize="xs" className="text-green-500 mb-1 mr-2" />}
-          {data?.status}</div>
+        <div>
+          {isAdminNavbar ? (
+            <Checkbox defaultChecked />
+          ) : (
+            <FiberManualRecordIcon
+              fontSize="xs"
+              className="text-green-500 mb-1 mr-2"
+            />
+          )}
+          {data?.status}
+        </div>
       </div>
     </div>
   );

@@ -3,16 +3,24 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DoctorListComponent from "./DoctorListComponent";
 import VerifiedIcon from "@mui/icons-material/Verified";
 
 const DoctorDetailsComponent = () => {
   const [bookingDate, setBookingDate] = useState(dayjs(Date.now()));
+  const [doctorDetails, setDoctorDetails] = useState(null);
   const params = useParams();
-  console.log(params);
+  const { state } = useLocation();
+  console.log(params, state);
+
+  useEffect(() => {
+    if (state?.doctorData) {
+      setDoctorDetails(state?.doctorData);
+    }
+  }, [state]);
 
   if (!params?.id)
     return (
@@ -37,14 +45,14 @@ const DoctorDetailsComponent = () => {
           <div className="border p-8">
             <div>
               <h2 className="flex items-center gap-2 text-3xl font-medium text-gray-700">
-                <span>Sam Ayyub</span>
+                <span>{doctorDetails?.name}</span>
                 <VerifiedIcon color="primary" />
               </h2>
             </div>
             <div className="flex items-center gap-2 mt-1 text-gray-600">
-              MBBS - General physician -{" "}
+              {doctorDetails?.degree} - {doctorDetails?.speciality} -{" "}
               <span className="py-0.5 px-2 border text-xs rounded-full">
-                4 Years
+                {doctorDetails?.experience} Years
               </span>
             </div>
             <div>
@@ -52,24 +60,19 @@ const DoctorDetailsComponent = () => {
                 About
               </div>
               <p className="text-sm text-gray-600 max-w-[700px] mt-1">
-                Dr. Davis has a strong commitment to delivering comprehensive
-                medical care, focusing on preventive medicine, early diagnosis,
-                and effective treatment strategies. Dr. Davis has a strong
-                commitment to delivering comprehensive medical care, focusing on
-                preventive medicine, early diagnosis, and effective treatment
-                strategies.
+                {doctorDetails?.aboutDoctor}
               </p>
             </div>
             <div className="text-gray-600 font-medium mt-4">
               <span>Appointment fee : </span>{" "}
-              <span className="text-gray-800">$50</span>
+              <span className="text-gray-800">${doctorDetails?.fees}</span>
             </div>
           </div>
 
           <div className="mt-8 font-medium text-[#565656]">
             <h4>Booking slots</h4>
-            <div className="mt-3">
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div className="mt-3 max-w-96">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
                   <DateTimePicker
                     label="Book Appointment"
@@ -81,8 +84,8 @@ const DoctorDetailsComponent = () => {
                     // defaultValue={dayjs(Date.now())}
                   />
                 </DemoContainer>
-              </LocalizationProvider> */}
-
+              </LocalizationProvider>
+              {/* 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <StaticDateTimePicker
                   value={bookingDate}
@@ -93,7 +96,7 @@ const DoctorDetailsComponent = () => {
                   label="Book Appointment"
                   orientation="landscape"
                 />
-              </LocalizationProvider>
+              </LocalizationProvider> */}
             </div>
           </div>
         </div>
@@ -110,7 +113,7 @@ const DoctorDetailsComponent = () => {
         <div>
           <DoctorListComponent
             isHeaderShow={false}
-            specialityFilter={"General Physician"}
+            specialityFilter={state?.doctorData?.speciality}
           />
         </div>
       </div>
