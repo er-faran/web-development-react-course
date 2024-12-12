@@ -28,6 +28,11 @@ const NavbarComponent = () => {
     isAdminNavbar = true;
   }
 
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn");
+    isLoggedIn(false);
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -80,6 +85,8 @@ const NavbarComponent = () => {
           </svg>
         </button>
       )}
+
+      
 
       {/* Links */}
       <div
@@ -214,7 +221,7 @@ const NavbarComponent = () => {
                         </ListItemIcon>
                         My Appointments
                       </MenuItem>
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={logout}>
                         <ListItemIcon>
                           <Logout fontSize="small" />
                         </ListItemIcon>
