@@ -14,6 +14,7 @@ import FooterComponent from "./Common/components/FooterComponent.jsx";
 import AddDoctorComponent from "./Admin/Components/AddDoctorComponent.jsx";
 import DoctorListAdminComponent from "./Admin/Components/DoctorsListAdminComponent.jsx";
 import AppointmentComponent from "./Admin/Components/AppointmentComponent.jsx";
+import MyProfileComponent from "./Member/Components/MyProfileComponent.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactComponent />} />
+          <Route path="/my-profile" element={<MyProfileComponent />} />
 
           {/* Common Routes */}
           <Route path="all-doctor" element={<AllDoctorComponent />} />

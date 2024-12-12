@@ -205,7 +205,7 @@ const NavbarComponent = () => {
                       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                     >
                       <MenuItem onClick={handleClose}>
-                        <Avatar /> My Profile
+                        <NavLink to="/my-profile"><Avatar/>My Profile</NavLink>
                       </MenuItem>
                       <Divider />
                       <MenuItem onClick={handleClose}>
