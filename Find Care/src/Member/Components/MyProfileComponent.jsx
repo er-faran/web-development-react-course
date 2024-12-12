@@ -10,7 +10,7 @@ const MyProfileComponent = () => {
           className="w-24 h-24 rounded-full border-2 border-blue-500 mb-4"
         />
         <h2 className="text-xl font-bold text-gray-800">John Doe</h2>
-        <p className="text-gray-500">johndoe@example.com</p>
+        <p className="text-gray-500">Renu@gmail.com</p>
       </div>
 
 
