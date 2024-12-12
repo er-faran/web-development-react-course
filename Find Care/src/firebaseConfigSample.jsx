@@ -4,18 +4,19 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
-const firebaseConfigData = {
-  apiKey: "XXX",
-  authDomain: "XXX",
-  projectId: "XX",
-  storageBucket: "XX",
-  messagingSenderId: "XX",
-  appId: "XX",
-  databaseURL: "XX",
+const firebaseConfig = {
+  apiKey: "xxx",
+  authDomain: "xxx",
+  projectId: "xxx",
+  storageBucket: "xxxxx",
+  messagingSenderId: "xxxxx",
+  appId: "xxxx",
+  databaseURL:"xxxx"
+
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfigData);
+const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
