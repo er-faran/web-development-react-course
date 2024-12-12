@@ -3,18 +3,56 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import DoctorListComponent from "./DoctorListComponent";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { Button } from "@mui/material";
+import { ref, set } from "firebase/database";
+import { database } from "../../firebaseConfig";
 
 const DoctorDetailsComponent = () => {
   const [bookingDate, setBookingDate] = useState(dayjs(Date.now()));
+  const [bookingSlot, setBookingSlot] = useState(null);
   const [doctorDetails, setDoctorDetails] = useState(null);
   const params = useParams();
   const { state } = useLocation();
+  const navigate = useNavigate();
   console.log(params, state);
+
+  const writeDataToDB = async () => {
+    console.log("data ", bookingDate.$d);
+
+    set(ref(database, "appointments/" + Date.now()), {
+      doctorId: params?.id,
+      bookingDate: bookingDate.$d,
+      bookingSlot: bookingSlot,
+      userName: "Renuka",
+      userId: "renuka-user@gmail.com",
+    })
+      .then((res) => {
+        console.log(res);
+        alert("Appointment has registered successsfully");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
+  const appointmentHandler = () => {
+    // Doctor ID - params?.id, Booking Date - bookingDate, Booking Slot - bookingSlot, LoggerIn User Name - , User Id/User Email
+    // Check user loggedin or not
+    const isLoggedIn = Boolean(localStorage.getItem("isLoggedIn"));
+    if (isLoggedIn === false) {
+      alert("Please Login before booking any appointment with doctor.");
+      navigate("/signup");
+    } else {
+      // User is looged in so proceed to booking
+      writeDataToDB();
+    }
+  };
 
   useEffect(() => {
     if (state?.doctorData) {
@@ -70,21 +108,66 @@ const DoctorDetailsComponent = () => {
           </div>
 
           <div className="mt-8 font-medium text-[#565656]">
-            <h4>Booking slots</h4>
-            <div className="mt-3 max-w-96">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateTimePicker"]}>
-                  <DateTimePicker
-                    label="Book Appointment"
+            <div className="mt-3 flex gap-10 flex-wrap">
+              <div className="flex-1 border-r-2">
+                <h4>Slots To Book</h4>
+
+                <div className="flex flex-wrap gap-5 mt-5">
+                  <Button
+                    className={`${
+                      bookingSlot === 1 ? "!bg-green-500 !text-white" : ""
+                    }`}
+                    onClick={() => setBookingSlot(1)}
+                  >
+                    10:00 AM - 12:00 PM
+                  </Button>
+                  <Button
+                    className={`${
+                      bookingSlot === 2 ? "!bg-green-500 !text-white" : ""
+                    }`}
+                    onClick={() => setBookingSlot(2)}
+                  >
+                    12:00 PM - 02:00 PM
+                  </Button>
+                  <Button
+                    className={`${
+                      bookingSlot === 3 ? "!bg-green-500 !text-white" : ""
+                    }`}
+                    onClick={() => setBookingSlot(3)}
+                  >
+                    04:00 PM - 06:00 PM
+                  </Button>
+                  <Button
+                    className={`${
+                      bookingSlot === 4 ? "!bg-green-500 !text-white" : ""
+                    }`}
+                    onClick={() => setBookingSlot(4)}
+                  >
+                    07:00 PM - 10:00 PM
+                  </Button>
+                </div>
+
+                <div className="mt-9">
+                  <Button
+                    disabled={!bookingDate || !bookingSlot}
+                    variant="outlined"
+                    onClick={() => appointmentHandler()}
+                  >
+                    Book Appointment
+                  </Button>
+                </div>
+              </div>
+              <div>
+                <h4 className="pl-5">Booking slots</h4>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateCalendar
                     value={bookingDate}
                     onChange={(newValue) => setBookingDate(newValue)}
-                    minutesStep={15}
-                    disablePast
-                    skipDisabled={true}
-                    // defaultValue={dayjs(Date.now())}
+                    disablePast={true}
                   />
-                </DemoContainer>
-              </LocalizationProvider>
+                </LocalizationProvider>
+              </div>
+
               {/* 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <StaticDateTimePicker
