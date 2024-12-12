@@ -11,12 +11,12 @@ const AllDoctorComponent = () => {
         <div className="hidden lg:flex w-64 flex-col gap-4">
           <div
             className={`all-doctor-left-button ${
-              selectedSpeciality === "General Physician" ? "active-button" : ""
+              selectedSpeciality === "General physician" ? "active-button" : ""
             }`}
             onClick={() =>
-              selectedSpeciality === "General Physician"
+              selectedSpeciality === "General physician"
                 ? setSelectedSpeciality("")
-                : setSelectedSpeciality("General Physician")
+                : setSelectedSpeciality("General physician")
             }
           >
             General physician
@@ -25,7 +25,9 @@ const AllDoctorComponent = () => {
             className={`all-doctor-left-button ${
               selectedSpeciality === "Gynecologist" ? "active-button" : ""
             }`}
-            onClick={() => setSelectedSpeciality("Gynecologist")}
+            onClick={() => selectedSpeciality === "Gynecologist"
+              ? setSelectedSpeciality("")
+              :setSelectedSpeciality("Gynecologist")}
           >
             Gynecologist
           </div>
@@ -33,7 +35,9 @@ const AllDoctorComponent = () => {
             className={`all-doctor-left-button ${
               selectedSpeciality === "Dermatologist" ? "active-button" : ""
             }`}
-            onClick={() => setSelectedSpeciality("Dermatologist")}
+            onClick={() => selectedSpeciality === "Dermatologist"
+              ? setSelectedSpeciality("")
+              :setSelectedSpeciality("Dermatologist")}
           >
             Dermatologist
           </div>
@@ -41,7 +45,9 @@ const AllDoctorComponent = () => {
             className={`all-doctor-left-button ${
               selectedSpeciality === "Pediatricians" ? "active-button" : ""
             }`}
-            onClick={() => setSelectedSpeciality("Pediatricians")}
+            onClick={() => selectedSpeciality === "Pediatricians"
+              ? setSelectedSpeciality("")
+              :setSelectedSpeciality("Pediatricians")}
           >
             Pediatricians
           </div>
@@ -49,7 +55,9 @@ const AllDoctorComponent = () => {
             className={`all-doctor-left-button ${
               selectedSpeciality === "Neurologist" ? "active-button" : ""
             }`}
-            onClick={() => setSelectedSpeciality("Neurologist")}
+            onClick={() => selectedSpeciality === "Neurologist"
+              ? setSelectedSpeciality("")
+              :setSelectedSpeciality("Neurologist")}
           >
             Neurologist
           </div>
@@ -57,7 +65,9 @@ const AllDoctorComponent = () => {
             className={`all-doctor-left-button ${
               selectedSpeciality === "Gastroenterologist" ? "active-button" : ""
             }`}
-            onClick={() => setSelectedSpeciality("Gastroenterologist")}
+            onClick={() => selectedSpeciality === "Gastroenterologist"
+              ? setSelectedSpeciality("")
+              :setSelectedSpeciality("Gastroenterologist")}
           >
             Gastroenterologist
           </div>
