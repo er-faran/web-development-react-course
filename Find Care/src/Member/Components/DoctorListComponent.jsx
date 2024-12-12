@@ -1,15 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import DoctorCardComponent from "./DoctorCardComponent";
-import { useNavigate, useLocation } from "react-router-dom";
-import { database } from "../../firebaseConfig";
+import { useLocation } from "react-router-dom";
+import { database } from "../../firebaseConfig.js";
 import { onValue, ref } from "firebase/database";
 
 const DoctorListComponent = ({
   isHeaderShow = true,
   specialityFilter = "",
 }) => {
-  const navigate = useNavigate();
   let isAdminNavbar = false;
   const adminRoutes = [
     "/admin-dashboard",
@@ -22,80 +22,6 @@ const DoctorListComponent = ({
   if (adminRoutes.includes(location.pathname)) {
     isAdminNavbar = true;
   }
-  // const doctorListData = [
-  //   {
-  //     id: "1",
-  //     name: "Sam",
-  //     speciality: "General Physician",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Sam 2",
-  //     speciality: "Gynecologist",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Sam 3",
-  //     speciality: "General Physician",
-  // status: "Available",
-  // doctorImg:
-  //   "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "Sam 4",
-  //     speciality: "Gynecologist",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "5",
-  //     name: "Sam 5",
-  //     speciality: "General Physician",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "6",
-  //     name: "Sam 6",
-  //     speciality: "Gynecologist",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "7",
-  //     name: "Sam 7",
-  //     speciality: "Neurologist",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "8",
-  //     name: "Sam 8",
-  //     speciality: "Pediatricians",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  //   {
-  //     id: "9",
-  //     name: "Sam 9",
-  //     speciality: "Dermatologist",
-  //     status: "Available",
-  //     doctorImg:
-  //       "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-  //   },
-  // ];
 
   const [doctorListData, setDoctorListData] = useState([]);
 
