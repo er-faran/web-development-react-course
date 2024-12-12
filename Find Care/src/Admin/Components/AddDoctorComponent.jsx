@@ -8,7 +8,7 @@ import {
 import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { onValue, ref, set } from "firebase/database";
-import { database } from "../../firebaseConfig";
+import { database } from "../../firebaseConfig.js";
 
 const AddDoctorComponent = () => {
   const [doctorData, setDoctorData] = useState({ name: "" });
@@ -50,6 +50,7 @@ const AddDoctorComponent = () => {
             // Email doesn't exist, adding new doctor data
             set(ref(database, "doctors/" + btoa(data?.email)), data)
               .then((res) => {
+                console.log(res);
                 // setDoctorData(null);
                 alert("Doctor Added Successfully");
               })
