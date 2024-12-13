@@ -64,16 +64,7 @@ Axios library and its setup + API Integration Example
 
 Redux library and Redux toolkit setup + useSelector + useDispatch
 
-Food Delivery Project Overview and Start - Main Landing Page UI Phase 1
-
-Food Delivery Project - Main Landing Page UI Phase 2
-Food Delivery Project - Main Landing Page UI Phase 3
-Food Delivery Project - Main Landing Page UI Phase 4
-Food Delivery Project - Firebase setup
-Food Delivery Project - Login + Sign Up + Authentication
-Food Delivery Project - Restaurants, Popular Dishes, User, Subscribed Newsletter User Data in DB
-Food Delivery Project - Show Restaurants Data from DB on UI
-Food Delivery Project - Dishes Data from DB on UI
+Build Find Care Project
 Deployment + Recap + Doubt Session
 
 
