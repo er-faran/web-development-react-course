@@ -11,7 +11,7 @@ import { onValue, ref, set } from "firebase/database";
 import { database } from "../../firebaseConfig.js";
 
 const AddDoctorComponent = () => {
-  const [doctorData, setDoctorData] = useState({ name: "" });
+  const [doctorData, setDoctorData] = useState({});
 
   const validateInputs = () => {
     let isValid = true;
