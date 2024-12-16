@@ -15,13 +15,13 @@ import AddDoctorComponent from "./Admin/Components/AddDoctorComponent.jsx";
 import DoctorListAdminComponent from "./Admin/Components/DoctorsListAdminComponent.jsx";
 import AppointmentComponent from "./Admin/Components/AppointmentComponent.jsx";
 import MyProfileComponent from "./Member/Components/MyProfileComponent.jsx";
+import { UserContextProvider } from "./context/UserContext.jsx";
 
 function App() {
   return (
-    <div>
-      <Router>
+    <Router>
+      <UserContextProvider>
         <NavbarComponent />
-
         <Routes>
           {/* Member Routes */}
           <Route path="/" element={<Home />} />
@@ -48,8 +48,8 @@ function App() {
           <Route path="*" element={<RouteNotFoundComponent />} />
         </Routes>
         <FooterComponent />
-      </Router>
-    </div>
+      </UserContextProvider>
+    </Router>
   );
 }
 
