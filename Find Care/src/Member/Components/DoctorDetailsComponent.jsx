@@ -17,24 +17,40 @@ const DoctorDetailsComponent = () => {
   const [bookingDate, setBookingDate] = useState(dayjs(Date.now()));
   const [bookingSlot, setBookingSlot] = useState(null);
   const [doctorDetails, setDoctorDetails] = useState(null);
+
+  const [open, setOpen] = useState(false);
+
+  const [formData, setFormData] = useState({});
+
   const params = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   console.log(params, state);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const writeDataToDB = async () => {
-    console.log("data ", bookingDate.$d);
+    console.log("data ", formData);
 
     set(ref(database, "appointments/" + Date.now()), {
       doctorId: params?.id,
       bookingDate: bookingDate.$d,
       bookingSlot: bookingSlot,
-      userName: "Renuka",
-      userId: "renuka-user@gmail.com",
+      // ...formData,
+      userName: formData.fullname,
+      userId: formData.email,
+      age: formData.age,
+      gender: formData.gender,
+      phone: formData?.phone,
+      symptoms: formData?.symptoms,
     })
       .then((res) => {
         console.log(res);
         alert("Appointment has registered successsfully");
+        handleClose();
+        setFormData({});
       })
       .catch((err) => {
         console.log("err", err);
@@ -151,9 +167,9 @@ const DoctorDetailsComponent = () => {
                   <Button
                     disabled={!bookingDate || !bookingSlot}
                     variant="outlined"
-                    onClick={() => appointmentHandler()}
+                    onClick={() => setOpen(true)}
                   >
-                    Book Appointment
+                    Click To Book Appointment
                   </Button>
                 </div>
               </div>
@@ -167,6 +183,176 @@ const DoctorDetailsComponent = () => {
                   />
                 </LocalizationProvider>
               </div>
+
+              {open && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+                  <div className="bg-white w-2/4  overflow-auto no-scrollbar rounded-lg p-8 shadow-lg relative">
+                    {/* Close Button */}
+                    <button
+                      className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+                      onClick={handleClose}
+                    >
+                      ✕
+                    </button>
+                    {/* Modal Content */}
+                    <h2 className="text-2xl font-bold mb-6 text-center text-blue-500">
+                      Patient Information
+                    </h2>
+                    <form className="">
+                      <div className="flex gap-8">
+                        <div className="mb-4 flex-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Full Name
+                          </label>
+                          <input
+                            type="text"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="Enter your full name"
+                            value={formData.fullname}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                fullname: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+
+                        <div className="mb-4 flex-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="Enter your email"
+                            value={formData.email}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                email: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mb-4 flex flex-col">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Gender
+                        </label>
+                        <div className="flex gap-5">
+                          <span className="flex items-center gap-2">
+                            <span className="block text-sm font-medium text-gray-700 mb-2">
+                              Male :{" "}
+                            </span>
+                            <input
+                              name="gender"
+                              value="male"
+                              id="male"
+                              type="radio"
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  gender:
+                                    e.target.checked === true ? "male" : "",
+                                })
+                              }
+                            />
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <span className="block text-sm font-medium text-gray-700 mb-2">
+                              Female :{" "}
+                            </span>
+                            <input
+                              name="gender"
+                              value="female"
+                              id="female"
+                              type="radio"
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  gender:
+                                    e.target.checked === true ? "female" : "",
+                                })
+                              }
+                            />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                          placeholder="Enter your phone number"
+                          value={formData.phone}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              phone: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Age
+                        </label>
+                        <input
+                          type="number"
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                          placeholder="Enter your age"
+                          value={formData.age}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              age: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+
+                      <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Symptoms
+                        </label>
+                        <textarea
+                          rows="3"
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                          placeholder="Describe your symptoms"
+                          value={formData.symptoms}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              symptoms: e.target.value,
+                            })
+                          }
+                        ></textarea>
+                      </div>
+                      <button
+                        disabled={
+                          !formData?.fullname ||
+                          !formData.gender ||
+                          !formData?.age ||
+                          !formData?.email ||
+                          !formData?.symptoms ||
+                          !formData?.phone
+                        }
+                        type="button"
+                        className="w-full bg-blue-500 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-600 transition disabled:bg-gray-500"
+                        onClick={appointmentHandler}
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
 
               {/* 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
