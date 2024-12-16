@@ -1,63 +1,88 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Sidebar from './Sidebar';
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Sidebar from "./Sidebar";
+import { onValue, ref } from "firebase/database";
+import { database } from "../../firebaseConfig";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+const AppointmentComponent = () => {
+  const [appointmentsData, setAppointmemtsData] = React.useState([]);
+  const getAppointmentsData = () => {
+    try {
+      const starCountRef = ref(database, "appointments/");
+      onValue(
+        starCountRef,
+        (snapshot) => {
+          const dbData = snapshot.val();
+          if (dbData) {
+            const data = Object.values(dbData);
+            console.log("appointment", data);
+            setAppointmemtsData(data);
+          }
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } catch (error) {
+      alert("Something went wrong please try again later");
+      console.log(error);
+    }
+  };
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+  React.useEffect(() => {
+    // Get All Appointment Data
+    getAppointmentsData();
+  }, []);
 
-const AppointmentComponent = ()=> {
   return (
-    <div className='flex'>
-    <div><Sidebar/></div>
-    <div className='px-4 py-4 bg-[#F8F9FD] max-w-[100%]'>
-        <div className='py-2 text text-xl'>All Appointments</div>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 850 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell align="right">Age</TableCell>
-            <TableCell align="right">Date & Time</TableCell>
-            <TableCell align="right">Doctor</TableCell>
-            <TableCell align="right">Fee</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </div>
+    <div className="flex">
+      <div>
+        <Sidebar />
+      </div>
+      <div className="px-4 py-4 bg-[#F8F9FD] flex-1">
+        <div className="py-2 text text-xl">All Appointments</div>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 850 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Appointment Date</TableCell>
+                <TableCell>Appointment Slot</TableCell>
+                <TableCell>Appointment For</TableCell>
+                <TableCell>Symptoms</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {appointmentsData?.map((row) => (
+                <TableRow
+                  key={row?.userName}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row?.userName}
+                  </TableCell>
+                  <TableCell>{row?.email}</TableCell>
+                  <TableCell>{row?.age}</TableCell>
+                  <TableCell>{row.gender === "male" ? "M" : "F"}</TableCell>
+                  <TableCell>{row.bookingDate}</TableCell>
+                  <TableCell>{row.bookingSlot}</TableCell>
+                  <TableCell>{atob(row.doctorId)}</TableCell>
+                  <TableCell>{row.symptoms}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };

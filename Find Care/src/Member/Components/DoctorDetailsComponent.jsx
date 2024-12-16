@@ -1,22 +1,28 @@
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DoctorListComponent from "./DoctorListComponent";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { Button } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { ref, set } from "firebase/database";
 import { database } from "../../firebaseConfig";
+import { UserContext } from "../../context/UserContext";
 
 const DoctorDetailsComponent = () => {
-  const [bookingDate, setBookingDate] = useState(dayjs(Date.now()));
+  const [bookingDate, setBookingDate] = useState();
   const [bookingSlot, setBookingSlot] = useState(null);
   const [doctorDetails, setDoctorDetails] = useState(null);
+
+  const { user } = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
 
@@ -32,29 +38,33 @@ const DoctorDetailsComponent = () => {
   };
 
   const writeDataToDB = async () => {
-    console.log("data ", formData);
+    console.log("data ", formData, bookingDate, bookingSlot);
 
-    set(ref(database, "appointments/" + Date.now()), {
-      doctorId: params?.id,
-      bookingDate: bookingDate.$d,
-      bookingSlot: bookingSlot,
-      // ...formData,
-      userName: formData.fullname,
-      userId: formData.email,
-      age: formData.age,
-      gender: formData.gender,
-      phone: formData?.phone,
-      symptoms: formData?.symptoms,
-    })
-      .then((res) => {
-        console.log(res);
-        alert("Appointment has registered successsfully");
-        handleClose();
-        setFormData({});
+    if (user?.email) {
+      set(ref(database, "appointments/" + Date.now()), {
+        doctorId: params?.id,
+        bookingDate: bookingDate,
+        bookingSlot: bookingSlot,
+        userName: formData.fullname,
+        email: formData.email,
+        age: formData.age,
+        gender: formData.gender,
+        phone: formData?.phone,
+        symptoms: formData?.symptoms,
+        loggedInUserID: user?.email,
       })
-      .catch((err) => {
-        console.log("err", err);
-      });
+        .then((res) => {
+          console.log(res);
+          alert("Appointment has registered successsfully");
+          handleClose();
+          setFormData({});
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
+      alert("Please login before taking any appointment");
+    }
   };
 
   const appointmentHandler = () => {
@@ -75,6 +85,12 @@ const DoctorDetailsComponent = () => {
       setDoctorDetails(state?.doctorData);
     }
   }, [state]);
+
+  useEffect(() => {
+    if (dayjs) {
+      setBookingSlot(dayjs().format("MM/DD/YYYY"));
+    }
+  }, []);
 
   if (!params?.id)
     return (
@@ -123,66 +139,15 @@ const DoctorDetailsComponent = () => {
             </div>
           </div>
 
-          <div className="mt-8 font-medium text-[#565656]">
-            <div className="mt-3 flex gap-10 flex-wrap">
-              <div className="flex-1 border-r-2">
-                <h4>Slots To Book</h4>
-
-                <div className="flex flex-wrap gap-5 mt-5">
-                  <Button
-                    className={`${
-                      bookingSlot === 1 ? "!bg-green-500 !text-white" : ""
-                    }`}
-                    onClick={() => setBookingSlot(1)}
-                  >
-                    10:00 AM - 12:00 PM
-                  </Button>
-                  <Button
-                    className={`${
-                      bookingSlot === 2 ? "!bg-green-500 !text-white" : ""
-                    }`}
-                    onClick={() => setBookingSlot(2)}
-                  >
-                    12:00 PM - 02:00 PM
-                  </Button>
-                  <Button
-                    className={`${
-                      bookingSlot === 3 ? "!bg-green-500 !text-white" : ""
-                    }`}
-                    onClick={() => setBookingSlot(3)}
-                  >
-                    04:00 PM - 06:00 PM
-                  </Button>
-                  <Button
-                    className={`${
-                      bookingSlot === 4 ? "!bg-green-500 !text-white" : ""
-                    }`}
-                    onClick={() => setBookingSlot(4)}
-                  >
-                    07:00 PM - 10:00 PM
-                  </Button>
-                </div>
-
-                <div className="mt-9">
-                  <Button
-                    disabled={!bookingDate || !bookingSlot}
-                    variant="outlined"
-                    onClick={() => setOpen(true)}
-                  >
-                    Click To Book Appointment
-                  </Button>
-                </div>
-              </div>
-              <div>
-                <h4 className="pl-5">Booking slots</h4>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DateCalendar
-                    value={bookingDate}
-                    onChange={(newValue) => setBookingDate(newValue)}
-                    disablePast={true}
-                  />
-                </LocalizationProvider>
-              </div>
+          <div className="mt-5 font-medium text-[#565656]">
+            <div className="flex gap-5 flex-wrap">
+              <Button
+                // disabled={!bookingDate || !bookingSlot}
+                variant="outlined"
+                onClick={() => setOpen(true)}
+              >
+                Click To Book Appointment
+              </Button>
 
               {open && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
@@ -280,41 +245,87 @@ const DoctorDetailsComponent = () => {
                           </span>
                         </div>
                       </div>
+                      <div className="flex gap-8">
+                        <div className="mb-4 flex-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="Enter your phone number"
+                            value={formData.phone}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                phone: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
 
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-                          placeholder="Enter your phone number"
-                          value={formData.phone}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              phone: e.target.value,
-                            })
-                          }
-                        />
+                        <div className="mb-4 flex-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Age
+                          </label>
+                          <input
+                            type="number"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                            placeholder="Enter your age"
+                            value={formData.age}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                age: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
                       </div>
 
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Age
-                        </label>
-                        <input
-                          type="number"
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-                          placeholder="Enter your age"
-                          value={formData.age}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              age: e.target.value,
-                            })
-                          }
-                        />
+                      <div className="flex flex-wrap items-center gap-8 my-4">
+                        <div className="flex-1">
+                          <FormControl fullWidth>
+                            <InputLabel id="appointment-slot">
+                              Slots To Book
+                            </InputLabel>
+
+                            <Select
+                              labelId="appointment-slot"
+                              id="appointment-slot-select"
+                              className="h-full"
+                              label="Appointment Slots"
+                              value={bookingSlot}
+                              onChange={(e) => setBookingSlot(e.target.value)}
+                            >
+                              <MenuItem value={"09:00 AM"}>09:00 AM</MenuItem>
+                              <MenuItem value={"10:00 AM"}>10:00 AM</MenuItem>
+                              <MenuItem value={"11:00 AM"}>11:00 AM</MenuItem>
+                              <MenuItem value={"12:00 PM"}>12:00 PM</MenuItem>
+                              <MenuItem value={"01:00 PM"}>01:00 PM</MenuItem>
+                              <MenuItem value={"03:00 PM"}>03:00 PM</MenuItem>
+                              <MenuItem value={"04:00 PM"}>04:00 PM</MenuItem>
+                              <MenuItem value={"05:00 PM"}>05:00 PM</MenuItem>
+                              <MenuItem value={"06:00 PM"}>06:00 PM</MenuItem>
+                              <MenuItem value={"07:00 PM"}>07:00 PM</MenuItem>
+                              <MenuItem value={"08:00 PM"}>08:00 PM</MenuItem>
+                              <MenuItem value={"09:00 PM"}>09:00 PM</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <div className="flex-1">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Booking Date"
+                              value={dayjs(bookingDate)}
+                              onChange={(newValue) => {
+                                setBookingDate(newValue.format("MM/DD/YYYY"));
+                              }}
+                              disablePast={true}
+                              sx={{ width: "100%" }}
+                            />
+                          </LocalizationProvider>
+                        </div>
                       </div>
 
                       <div className="mb-6">
@@ -353,19 +364,6 @@ const DoctorDetailsComponent = () => {
                   </div>
                 </div>
               )}
-
-              {/* 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <StaticDateTimePicker
-                  value={bookingDate}
-                  onChange={(newValue) => setBookingDate(newValue)}
-                  minutesStep={15}
-                  disablePast
-                  skipDisabled={true}
-                  label="Book Appointment"
-                  orientation="landscape"
-                />
-              </LocalizationProvider> */}
             </div>
           </div>
         </div>

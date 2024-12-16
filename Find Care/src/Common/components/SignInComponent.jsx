@@ -12,7 +12,9 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig";
+import { UserContext } from "../../context/UserContext";
+import { onValue, ref } from "firebase/database";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -37,14 +39,37 @@ export default function SignInComponent() {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
-  // Need to Get data from realtime DB
+
+  const { setUser } = React.useContext(UserContext);
 
   const navigate = useNavigate();
+
+  const getUserDetailsAndCallContext = (email) => {
+    try {
+      const starCountRef = ref(database, "users/" + btoa(email));
+      onValue(
+        starCountRef,
+        (snapshot) => {
+          const dbData = snapshot.val();
+          if (dbData?.email === email) {
+            setUser(dbData);
+          }
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } catch (error) {
+      alert("Something went wrong please try again later");
+      console.log(error);
+    }
+  };
 
   const handleSignIn = async (email, password) => {
     try {
       const resp = await signInWithEmailAndPassword(auth, email, password);
       console.log("resp", resp);
+      getUserDetailsAndCallContext(email);
       alert("User Signed In successfully");
       localStorage.setItem("isLoggedIn", true);
       navigate("/");

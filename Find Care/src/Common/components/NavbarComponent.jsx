@@ -10,8 +10,9 @@ import {
 import Logout from "@mui/icons-material/Logout";
 import MedicationIcon from "@mui/icons-material/Medication";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 const NavbarComponent = () => {
   let isAdminNavbar = false;
@@ -22,6 +23,8 @@ const NavbarComponent = () => {
     "/doctor-list",
   ];
 
+  const { user } = useContext(UserContext);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   if (adminRoutes.includes(location.pathname)) {
@@ -30,7 +33,6 @@ const NavbarComponent = () => {
 
   const logout = () => {
     localStorage.removeItem("isLoggedIn");
-    isLoggedIn(false);
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -85,8 +87,6 @@ const NavbarComponent = () => {
           </svg>
         </button>
       )}
-
-      
 
       {/* Links */}
       <div
@@ -171,7 +171,9 @@ const NavbarComponent = () => {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
-                      <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        {user?.username?.[0]}
+                      </Avatar>
                     </IconButton>
 
                     <Menu
@@ -212,7 +214,15 @@ const NavbarComponent = () => {
                       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                     >
                       <MenuItem onClick={handleClose}>
-                        <NavLink to="/my-profile"><Avatar/>My Profile</NavLink>
+                        <div className="flex-1 items-center">
+                          <NavLink
+                            to="/my-profile"
+                            className="flex items-center"
+                          >
+                            <Avatar />
+                            My Profile
+                          </NavLink>
+                        </div>
                       </MenuItem>
                       <Divider />
                       <MenuItem onClick={handleClose}>
