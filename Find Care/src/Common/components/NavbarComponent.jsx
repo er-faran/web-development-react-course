@@ -11,7 +11,7 @@ import Logout from "@mui/icons-material/Logout";
 import MedicationIcon from "@mui/icons-material/Medication";
 
 import { useContext, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
 const NavbarComponent = () => {
@@ -22,6 +22,8 @@ const NavbarComponent = () => {
     "/add-doctor",
     "/doctor-list",
   ];
+
+  const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
 
@@ -225,7 +227,11 @@ const NavbarComponent = () => {
                         </div>
                       </MenuItem>
                       <Divider />
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem
+                        onClick={() => {
+                          navigate(`/my-appointments/${btoa(user?.email)}`);
+                        }}
+                      >
                         <ListItemIcon>
                           <MedicationIcon fontSize="small" />
                         </ListItemIcon>

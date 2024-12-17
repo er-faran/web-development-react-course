@@ -28,6 +28,17 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactComponent />} />
           <Route path="/my-profile" element={<MyProfileComponent />} />
+          <Route
+            path="/my-appointments/:email"
+            element={
+              <div className="mx-4 lg:mx-36">
+                <AppointmentComponent
+                  isSidebarToShow={false}
+                  tableHeading="My Appointments"
+                />
+              </div>
+            }
+          />
 
           {/* Common Routes */}
           <Route path="all-doctor" element={<AllDoctorComponent />} />
