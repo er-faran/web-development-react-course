@@ -156,7 +156,7 @@ const NavbarComponent = () => {
             </li>
             <li>
               {!isAdminNavbar &&
-                (!localStorage.getItem("isLoggedIn") ? (
+                (!user?.email ? (
                   <NavLink
                     to="/signup"
                     className="mt-4 lg:mt-0 bg-[#5c74fc] hover:bg-blue-800 text-white text-sm px-6 py-2 rounded-sm lg:rounded-full text-center"
