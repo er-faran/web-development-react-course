@@ -86,7 +86,7 @@ const AddDoctorComponent = () => {
                 return;
               }
 
-              writeDataToDB(doctorData);
+              writeDataToDB({ ...doctorData, isAvailable: true });
             }}
             className="flex gap-5 flex-wrap justify-around"
           >

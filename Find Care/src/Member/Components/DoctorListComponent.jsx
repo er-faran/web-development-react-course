@@ -38,12 +38,16 @@ const DoctorListComponent = ({
           const dbDoctorData = Object.values(dbData);
 
           dbDoctorData.map((item) => {
-            formattedData.push({
-              ...item,
-              status: "Available",
-              doctorImg:
-                "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
-            });
+            if (
+              adminRoutes.includes(location.pathname) ||
+              item?.isAvailable === true
+            )
+              formattedData.push({
+                ...item,
+                status: "Available",
+                doctorImg:
+                  "https://raw.githubusercontent.com/avinashdm/gs-images/main/prescripto/doc1.png",
+              });
           });
 
           setDoctorListData(formattedData);

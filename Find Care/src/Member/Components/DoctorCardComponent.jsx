@@ -2,6 +2,9 @@
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { useNavigate, useLocation } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
+import { database } from "../../firebaseConfig";
+import { onValue, ref, set } from "firebase/database";
+import { useState } from "react";
 
 const DoctorCardComponent = ({ data }) => {
   const navigate = useNavigate();
@@ -13,10 +16,55 @@ const DoctorCardComponent = ({ data }) => {
     "/doctor-list",
   ];
 
+  const [isDoctorAvailable, setIsDoctorAvailable] = useState(
+    data?.isAvailable === true
+  );
+
   const location = useLocation();
   if (adminRoutes.includes(location.pathname)) {
     isAdminNavbar = true;
   }
+
+  const updateDoctorAvailibility = (email = "", isAvailable = false) => {
+    try {
+      if (email) {
+        const doctorRef = ref(database, "doctors/" + btoa(email));
+        onValue(
+          doctorRef,
+          (snapshot) => {
+            const dbData = snapshot.val();
+            console.log("dbData", dbData);
+
+            if (dbData?.email === email) {
+              // Doctor Found with this email and now we need to update flag
+              set(ref(database, "doctors/" + btoa(email)), {
+                ...data,
+                isAvailable: isAvailable,
+              })
+                .then((res) => {
+                  console.log(res);
+                  // setDoctorData(null);
+                  setIsDoctorAvailable(isAvailable);
+                  alert("Doctor Availibility Updated Successfully");
+                })
+                .catch((err) => {
+                  alert("Something went wrong please try again later");
+                  console.log(err);
+                });
+            } else {
+              alert("Could not found the Doctor, Please try again!");
+            }
+          },
+          {
+            onlyOnce: true,
+          }
+        );
+      }
+    } catch (error) {
+      alert("Something went wrong please try again later");
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -47,7 +95,12 @@ const DoctorCardComponent = ({ data }) => {
         <div className="text-[#5C5C5C] text-sm">{data?.speciality}</div>
         <div>
           {isAdminNavbar ? (
-            <Checkbox defaultChecked />
+            <Checkbox
+              checked={isDoctorAvailable}
+              onChange={(e) =>
+                updateDoctorAvailibility(data?.email, e.target.checked)
+              }
+            />
           ) : (
             <FiberManualRecordIcon
               fontSize="xs"

@@ -22,42 +22,47 @@ function App() {
     <Router>
       <UserContextProvider>
         <NavbarComponent />
-        <Routes>
-          {/* Member Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactComponent />} />
-          <Route path="/my-profile" element={<MyProfileComponent />} />
-          <Route
-            path="/my-appointments/:email"
-            element={
-              <div className="mx-4 lg:mx-36">
-                <AppointmentComponent
-                  isSidebarToShow={false}
-                  tableHeading="My Appointments"
-                />
-              </div>
-            }
-          />
+        <div className="flex-1">
+          <Routes>
+            {/* Member Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactComponent />} />
+            <Route path="/my-profile" element={<MyProfileComponent />} />
+            <Route
+              path="/my-appointments/:email"
+              element={
+                <div className="mx-4 lg:mx-36">
+                  <AppointmentComponent
+                    isSidebarToShow={false}
+                    tableHeading="My Appointments"
+                  />
+                </div>
+              }
+            />
 
-          {/* Common Routes */}
-          <Route path="all-doctor" element={<AllDoctorComponent />} />
-          <Route
-            path="/doctor-details/:id"
-            element={<DoctorDetailsComponent />}
-          />
-          <Route path="/signin" element={<SignInComponent />} />
-          <Route path="/signup" element={<SignUpComponent />} />
+            {/* Common Routes */}
+            <Route path="all-doctor" element={<AllDoctorComponent />} />
+            <Route
+              path="/doctor-details/:id"
+              element={<DoctorDetailsComponent />}
+            />
+            <Route path="/signin" element={<SignInComponent />} />
+            <Route path="/signup" element={<SignUpComponent />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/all-appointments" element={<AppointmentComponent />} />
-          <Route path="/add-doctor" element={<AddDoctorComponent />} />
-          <Route path="/doctor-list" element={<DoctorListAdminComponent />} />
+            {/* Admin Routes */}
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route
+              path="/all-appointments"
+              element={<AppointmentComponent />}
+            />
+            <Route path="/add-doctor" element={<AddDoctorComponent />} />
+            <Route path="/doctor-list" element={<DoctorListAdminComponent />} />
 
-          {/* Unknown Routes */}
-          <Route path="*" element={<RouteNotFoundComponent />} />
-        </Routes>
+            {/* Unknown Routes */}
+            <Route path="*" element={<RouteNotFoundComponent />} />
+          </Routes>
+        </div>
         <FooterComponent />
       </UserContextProvider>
     </Router>
