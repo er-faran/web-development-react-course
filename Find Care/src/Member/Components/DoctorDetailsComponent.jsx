@@ -144,7 +144,13 @@ const DoctorDetailsComponent = () => {
               <Button
                 // disabled={!bookingDate || !bookingSlot}
                 variant="outlined"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  if (user?.email) {
+                    setOpen(true);
+                  } else {
+                    navigate("/signin");
+                  }
+                }}
               >
                 Click To Book Appointment
               </Button>

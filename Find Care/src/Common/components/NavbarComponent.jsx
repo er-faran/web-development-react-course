@@ -10,7 +10,7 @@ import {
 import Logout from "@mui/icons-material/Logout";
 import MedicationIcon from "@mui/icons-material/Medication";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
@@ -25,7 +25,7 @@ const NavbarComponent = () => {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -35,6 +35,8 @@ const NavbarComponent = () => {
 
   const logout = () => {
     localStorage.removeItem("isLoggedIn");
+    setUser(null);
+    navigate("/");
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -45,6 +47,10 @@ const NavbarComponent = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <nav
@@ -146,14 +152,16 @@ const NavbarComponent = () => {
                 CONTACT
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                className="text-black text-sm px-4 py-1 rounded-full border border-gray-300 hover:border-blue-800 hover:text-blue-800"
-                to="/admin-dashboard"
-              >
-                Admin Panel
-              </NavLink>
-            </li>
+            {user?.email === "super.user@gmail.com" && (
+              <li>
+                <NavLink
+                  className="text-black text-sm px-4 py-1 rounded-full border border-gray-300 hover:border-blue-800 hover:text-blue-800"
+                  to="/admin-dashboard"
+                >
+                  Admin Panel
+                </NavLink>
+              </li>
+            )}
             <li>
               {!isAdminNavbar &&
                 (!user?.email ? (

@@ -36,9 +36,14 @@ const BannerComponent = () => {
             schedule your appointment hassle-free.
           </p>
 
-          <button className="mt-6 bg-white text-blue-500 font-medium px-6 py-3 rounded-full shadow-lg hover:bg-gray-100">
-            Book appointment →
-          </button>
+          <div className="mt-10">
+            <a
+              href="#doctor-list-home"
+              className="mt-3 bg-white text-blue-500 font-medium px-6 py-3 rounded-full shadow-lg hover:bg-gray-100"
+            >
+              Book appointment →
+            </a>
+          </div>
         </div>
 
         {/* Image */}
