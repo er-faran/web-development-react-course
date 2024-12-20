@@ -25,7 +25,7 @@ const NavbarComponent = () => {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -35,6 +35,8 @@ const NavbarComponent = () => {
 
   const logout = () => {
     localStorage.removeItem("isLoggedIn");
+    setUser(null);
+    navigate("/");
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
