@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { TfiDashboard } from "react-icons/tfi";
+import { onValue, ref } from "firebase/database";
+import { database } from "../../firebaseConfig";
 
 const Dashboard = () => {
   // Pie chart data: Appointments by Type
@@ -26,6 +28,50 @@ const Dashboard = () => {
 
   const xAxisData = ["Q1", "Q2", "Q3", "Q4"];
 
+  const [countData, setCountData] = useState({
+    appointmentsCount: 0,
+    allDoctorsCount: 0,
+    activeDoctorCount: 0,
+    usersCount: 0,
+  });
+
+  const getCountData = () => {
+    try {
+      const starCountRef = ref(database, "/");
+      onValue(
+        starCountRef,
+        (snapshot) => {
+          const dbData = snapshot.val();
+          const appointmentsCount = Object?.values(
+            dbData?.appointments
+          )?.length;
+          const allDoctorsCount = Object?.values(dbData?.doctors)?.length;
+
+          const activeDoctorCount = Object?.values(dbData?.doctors)?.filter(
+            (doc) => doc?.isAvailable
+          )?.length;
+          const usersCount = Object?.values(dbData?.users)?.length;
+          setCountData({
+            appointmentsCount,
+            allDoctorsCount,
+            activeDoctorCount,
+            usersCount,
+          });
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } catch (error) {
+      alert("Something went wrong please try again later");
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCountData();
+  }, []);
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -42,32 +88,40 @@ const Dashboard = () => {
         </div>
 
         {/* Metrics Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-8 ">
+          <div className="bg-gray-100 border border-black-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
+            <p className="text-lg font-semibold">All Doctors</p>
+            <p className="text-2xl font-bold text-yellow-500">
+              {countData?.allDoctorsCount}
+            </p>
+          </div>
           <div className="bg-blue-100 border border-blue-300 rounded p-4 flex flex-col items-center  shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-lg font-semibold">Active Doctors</p>
-            <p className="text-2xl font-bold text-blue-500 ">25</p>
+            <p className="text-2xl font-bold text-blue-500 ">
+              {countData?.activeDoctorCount}
+            </p>
           </div>
           <div className="bg-green-100 border border-green-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-lg font-semibold">Active Patients</p>
-            <p className="text-2xl font-bold text-green-500">150</p>
+            <p className="text-2xl font-bold text-green-500">
+              {countData?.usersCount}
+            </p>
           </div>
           <div className="bg-yellow-100 border border-yellow-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-lg font-semibold">Active Appointments</p>
-            <p className="text-2xl font-bold text-yellow-500">45</p>
-          </div>
-          <div className="bg-gray-100 border border-black-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <p className="text-lg font-semibold">Consultations</p>
-            <p className="text-2xl font-bold text-yellow-500">45</p>
+            <p className="text-2xl font-bold text-yellow-500">
+              {countData?.appointmentsCount}
+            </p>
           </div>
 
-          <div className="bg-orange-100 border border-purple-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          {/* <div className="bg-orange-100 border border-purple-300 rounded p-4 flex flex-col items-center shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <p className="text-lg font-semibold">Follow-ups</p>
             <p className="text-2xl font-bold text-yellow-500">45</p>
           </div>
           <div className="bg-red-100 border border-green-300 rounded p-4 flex flex-col items-centershadow-lg hover:shadow-2xl transition-shadow duration-300 ">
             <p className="text-lg font-semibold">Surgeries</p>
             <p className="text-2xl font-bold text-yellow-500">45</p>
-          </div>
+          </div> */}
         </div>
 
         {/* Charts Section */}

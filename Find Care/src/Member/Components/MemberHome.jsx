@@ -11,7 +11,9 @@ const MemberHome = () => {
 
         <FindBySpeciality />
 
-        <DoctorListComponent />
+        <div id="doctor-list-home">
+          <DoctorListComponent />
+        </div>
 
         <CreateAccountBanner />
       </div>
