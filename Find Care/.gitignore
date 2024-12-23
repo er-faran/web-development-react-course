@@ -11,8 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-firebaseConfig.jsx
-firebaseConfig.js
 package-lock.json
 .vite
 
