@@ -14,6 +14,7 @@ dist-ssr
 firebaseConfig.jsx
 firebaseConfig.js
 package-lock.json
+.vite
 
 
 # Editor directories and files
